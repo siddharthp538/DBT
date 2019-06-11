@@ -1,3 +1,3 @@
 # dbtnetwork
 
-subsidy transfer system
+Blockchain Based Direct Benefit Transfer System for Subsidy delivery
