@@ -85,11 +85,3 @@ transaction PlaceOrder {
   o Integer gasAgencyInventory
   o DateTime lastSubsidyClaim 
 }
-
-transaction 
-
-event SampleEvent {
-  
-  o String oldValue
-  o String newValue
-}
