@@ -18,25 +18,72 @@
 
 namespace org.example.dbt
 
-participant SampleParticipant identified by participantId {
-  o String participantId
-  o String firstName
-  o String lastName
+participant GovAuthority identified by govAuthorityId {
+  o String govAuthorityId
+  o String govAuthorityTitle
+  o String govAuthorityJurisdicition
+  o String[] govAuhtorityDomain
 }
 
-asset SampleAsset identified by assetId {
-  o String assetId
-  --> SampleParticipant owner
-  o String value
+participant GasAgency identified by gasAgencyRegistrationId{
+  o String gasAgencyRegistrationId
+  o String gasAgencyOwner
+  o String gasAgencyState
+  o String gasAgencyDistrict
+  o String gasAgencyLocation
+  o String gasAgencyPincode
+  o String gasAgencyPhoneNumber
+  o String gasAgencyAccountNumber
+  o Double gasAgencyDeficitIncurred default = 0.0
+  o DateTime gasAgencyLastPaid
+  o String[] gasAgencyOrdersPlaced
+  o String[] gasAgencyOrdersServed
+}
+
+participant Beneficiary identified by aadhaarNo{
+  o String aadhaarNo
+  o String beneficiaryPhoneNumber
+  o String beneficiaryState
+  o String beneficiaryDistrict
+  o String beneficiaryLocation
+  o String beneficiaryPincode
+  o String beneficiaryFirstName
+  o String beneficiaryLastName
+  o String beneficiaryAddress
+  o Integer subsidyEntitlement
+  o DateTime lastSubsidyClaim 
+}
+
+asset LPGCylinder identified by lpgCylinderUid{
+  o String lpgCylinderUid
+  o Double lpgCylinderWeight
+  o String beneficiaryAadhaarNo
+  o Double marketPrice default = 800.0
+  o Double subsidyRate default = 0.32
+}
+
+asset SubsidyAmount identified by subsidyId{
+  o String subsidyId
+  o String beneficiaryAadhaarNo
+  o Double subsidyAmount
+  o DateTime issuedAt
+  o String payedBy
+  o String payedTo
+}
+
+asset Token identified by tokenId{
+  o String tokenId
+  o String beneficiaryAadhaarNo
+  o String tokenHash
 }
 
 transaction SampleTransaction {
-  --> SampleAsset asset
+ 
   o String newValue
 }
 
 event SampleEvent {
-  --> SampleAsset asset
+  
   o String oldValue
   o String newValue
 }
