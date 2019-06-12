@@ -51,6 +51,7 @@ participant Beneficiary identified by aadhaarNo{
   o String beneficiaryFirstName
   o String beneficiaryLastName
   o String beneficiaryAddress
+  o DateTime[] beneficiaryOrderHistory
   o Integer subsidyEntitlement
   o DateTime lastSubsidyClaim 
 }
