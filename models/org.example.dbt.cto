@@ -53,9 +53,9 @@ participant Beneficiary identified by aadhaarNo{
   o String beneficiaryFirstName
   o String beneficiaryLastName
   o String beneficiaryAddress
-  o DateTime[] beneficiaryOrderHistory
   o Integer subsidyEntitlement
-  o DateTime lastSubsidyClaim 
+  o DateTime lastSubsidyClaim
+  o DateTime[] beneficiaryOrderHistory 
 }
 
 asset LPGCylinder identified by lpgCylinderUid{
@@ -88,9 +88,8 @@ transaction PlaceOrder {
   o Integer gasAgencyInventory
   o DateTime lastSubsidyClaim 
   o String[] gasAgencyOrdersPlaced
-<<<<<<< HEAD
 }
-// Gov Authority transaction
+// Gov Authority transaction  
 transaction NotifyGovAuthority{
   o String beneficiaryAadhaarNo
   o String[] govAuthorityOrdersPlaced
@@ -99,11 +98,4 @@ event SampleEvent {
   
   o String oldValue
   o String newValue
-=======
-}
-
-transaction NotifyGovAuthority  {
-  o String beneficiaryAadhaarNo
-  o String[] govAuthorityOrdersPlaced
->>>>>>> 11a516fbbbf18f7da2804f7faa4ce463a69bda40
 }
