@@ -36,6 +36,7 @@ participant GasAgency identified by gasAgencyRegistrationId{
   o String gasAgencyAccountNumber
   o Double gasAgencyDeficitIncurred default = 0.0
   o DateTime gasAgencyLastPaid
+  o Integer gasAgencyInventory
   o String[] gasAgencyOrdersPlaced
   o String[] gasAgencyOrdersServed
 }
@@ -77,10 +78,15 @@ asset Token identified by tokenId{
   o String tokenHash
 }
 
-transaction SampleTransaction {
- 
-  o String newValue
+transaction PlaceOrder { 
+  o String beneficiaryAadhaarNo
+  o Integer subsidyEntitlement
+  o Double subsidyAmount
+  o Integer gasAgencyInventory
+  o DateTime lastSubsidyClaim 
 }
+
+transaction 
 
 event SampleEvent {
   
