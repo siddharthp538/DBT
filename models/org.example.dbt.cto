@@ -94,8 +94,15 @@ transaction NotifyGovAuthority{
   o String beneficiaryAadhaarNo
   o String[] govAuthorityOrdersPlaced
 }
-event SampleEvent {
-  
+
+//calculate hash as a function of BOTH aadhaar and phone number, toke identified by id and put the hash value in tokenHash. Create a new token.
+transaction CalculateToken{
+  o String beneficiaryAadhaarNo
+  o String beneficiaryPhoneNumber
+  o String tokenId
+  o String tokenHash
+}
+event SampleEvent {  
   o String oldValue
   o String newValue
 }

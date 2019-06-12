@@ -12,7 +12,7 @@
     "test": "nyc mocha -t 0 test/*.js && cucumber-js"
   },
   "keywords": [
-    "composer", 
+    "composer",
     "composer-network"
   ],
   "author": "sar",
