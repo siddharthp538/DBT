@@ -23,6 +23,8 @@ participant GovAuthority identified by govAuthorityId {
   o String govAuthorityTitle
   o String govAuthorityJurisdicition
   o String[] govAuhtorityDomain
+  o String[] govAuthorityOrdersPlaced
+  o String[] govAuhtorityOrdersServed
 }
 
 participant GasAgency identified by gasAgencyRegistrationId{
@@ -84,10 +86,13 @@ transaction PlaceOrder {
   o Double subsidyAmount
   o Integer gasAgencyInventory
   o DateTime lastSubsidyClaim 
+  o String[] gasAgencyOrdersPlaced
 }
-
-transaction 
-
+// Gov Authority transaction
+transaction NotifyGovAuthority{
+  o String beneficiaryAadhaarNo
+  o String[] govAuthorityOrdersPlaced
+}
 event SampleEvent {
   
   o String oldValue
