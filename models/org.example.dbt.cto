@@ -53,6 +53,7 @@ participant Beneficiary identified by aadhaarNo{
   o String beneficiaryFirstName
   o String beneficiaryLastName
   o String beneficiaryAddress
+  o DateTime[] beneficiaryOrderHistory
   o Integer subsidyEntitlement
   o DateTime lastSubsidyClaim 
 }
@@ -87,6 +88,7 @@ transaction PlaceOrder {
   o Integer gasAgencyInventory
   o DateTime lastSubsidyClaim 
   o String[] gasAgencyOrdersPlaced
+<<<<<<< HEAD
 }
 // Gov Authority transaction
 transaction NotifyGovAuthority{
@@ -97,4 +99,11 @@ event SampleEvent {
   
   o String oldValue
   o String newValue
+=======
+}
+
+transaction NotifyGovAuthority  {
+  o String beneficiaryAadhaarNo
+  o String[] govAuthorityOrdersPlaced
+>>>>>>> 11a516fbbbf18f7da2804f7faa4ce463a69bda40
 }
