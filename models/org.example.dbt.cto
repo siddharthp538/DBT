@@ -84,4 +84,10 @@ transaction PlaceOrder {
   o Double subsidyAmount
   o Integer gasAgencyInventory
   o DateTime lastSubsidyClaim 
+  o String[] gasAgencyOrdersPlaced
+}
+
+transaction NotifyGovAuthority  {
+  o String beneficiaryAadhaarNo
+  o String[] govAuthorityOrdersPlaced
 }
