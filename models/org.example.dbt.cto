@@ -84,6 +84,7 @@ transaction PlaceOrder {
   o Double subsidyAmount
   o Integer gasAgencyInventory
   o DateTime lastSubsidyClaim 
+  o String gasAgencyRegistrationId
   o String[] gasAgencyOrdersPlaced
 }
 // Gov Authority transaction  
