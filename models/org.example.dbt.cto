@@ -68,7 +68,7 @@ asset LPGCylinder identified by lpgCylinderUid{
 
 asset SubsidyAmount identified by subsidyId{
   o String subsidyId
-  o String beneficiaryAadhaarNo
+  o String gasAgencyRegistrationId
   o Double subsidyAmount
   o DateTime issuedAt
   o String payedBy
@@ -109,12 +109,10 @@ transaction VerifyToken {
 }
 
 
-// transaction RequestFunds {
-//   o String
-// }
 
 transaction RelaseFunds  {
-  o String detail
+  o String gasAgencyRegistrationId
+  o String govAuthorityTitle
 }
 event SampleEvent {  
   o String oldValue
