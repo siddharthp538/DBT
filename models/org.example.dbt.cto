@@ -92,6 +92,7 @@ transaction NotifyGovAuthority{
   o String beneficiaryAadhaarNo
   o DateTime orderPlaced 
   o String[] govAuthorityOrdersPlaced
+  o String govAuthorityId
 }
 
 //calculate hash as a function of BOTH aadhaar and phone number, toke identified by id and put the hash value in tokenHash. Create a new token.
