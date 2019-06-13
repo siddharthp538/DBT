@@ -1,4 +1,6 @@
 const express = require('express');
+const unirest = require('unirest');
+
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -6,8 +8,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.post('/token', async (req,res)=> {
-    const otp = Math.floor(100000 + Math.random() * 900000);
+app.get('/token', async (req,res)=> {
+    let otp = Math.floor(100000 + Math.random() * 900000);
     otp %= 10000;
     console.log(otp)
     try {
@@ -16,7 +18,7 @@ app.post('/token', async (req,res)=> {
         apikey: 'DZ5614KZ864GAY8EYARRMSNG3UMCHYVB',
         secret: '0N05X4PUQ9WNSTWI',
         usetype: 'stage',
-        phone: req.body.phone,
+        phone: 8850949073,
         message: `Your One Time Password is ${otp}`,
         senderid: 'varsha'
       }
