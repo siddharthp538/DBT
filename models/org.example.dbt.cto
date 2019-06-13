@@ -60,7 +60,7 @@ participant Beneficiary identified by aadhaarNo{
 
 asset LPGCylinder identified by lpgCylinderUid{
   o String lpgCylinderUid
-  o Double lpgCylinderWeight
+  o Double lpgCylinderWeight default = 14.2
   o String beneficiaryAadhaarNo
   o Double marketPrice default = 800.0
   o Double subsidyRate default = 0.32
@@ -105,6 +105,16 @@ transaction VerifyToken {
   o String gasAgencyRegistrationId
   o String beneficiaryAadhaarNo
   o String OTP
+  o String lpgCylinderUid
+}
+
+
+// transaction RequestFunds {
+//   o String
+// }
+
+transaction RelaseFunds  {
+  o String detail
 }
 event SampleEvent {  
   o String oldValue
