@@ -1,0 +1,39 @@
+<div class="main-div1" *ngIf="!displayToggle">
+    <mat-card style="margin-top: 25px">
+    <mat-card-title>Request Fund release</mat-card-title>
+    <form [formGroup]="fundReleaseForm" (ngSubmit)="onSubmitFundRelease()" >
+          <mat-dialog-content>
+                <p>  
+                    <mat-form-field>
+                      <label>Government Authority ID</label>
+                        <input matInput type="text" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
+                    </mat-form-field>
+                </p>
+                      <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
+                          <div *ngIf="g.id.errors.required">Authority ID is required</div>
+                          <div *ngIf="g.id.errors.minlength">Authority ID should be 12 digits long</div>
+                          <div *ngIf="g.id.errors.maxlength">Authority ID should be 12 digits long</div>
+                          <div *ngIf="g.id.errors.pattern">Authority ID should contain only numeric digits</div>
+                      </div>
+    
+                  
+                <p>
+                    <mat-form-field>
+                      <label>Gas Agency Reg. No.</label>
+                        <input matInput type="text" formControlName="gasregno" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.gasregno.errors }" />
+                    </mat-form-field>
+                </p>
+                      <div *ngIf="submitted && f.gasregno.errors" class="invalid-feedback">
+                          <div *ngIf="g.gasregno.errors.required">Agency is required</div>
+                          <div *ngIf="g.gasregno.errors.minlength">Agency ID should be 12 digits long</div>
+                          <div *ngIf="g.gasregno.errors.maxlength">Agency ID should be 12 digits long</div>
+                          <div *ngIf="g.gasregno.errors.pattern">Agency ID should contain only numeric digits</div>
+                      </div>
+                      
+                <p>
+                    <button mat-raised-button color="accent">Request</button>
+                </p>
+           </mat-dialog-content>
+    </form>
+    </mat-card>
+    </div>

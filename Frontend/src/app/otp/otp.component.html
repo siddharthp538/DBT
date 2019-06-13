@@ -1,0 +1,76 @@
+
+      <form [formGroup]="requestForm" (ngSubmit)="onSubmitRequest()" *ngIf="!displayToggle">
+          <h3>Request for OTP</h3>
+            <mat-dialog-content>
+                  <p>  
+                      <mat-form-field>
+                        <label>Aadhar No</label>
+                          <input matInput type="text" formControlName="aadharRequest" class="form-control" [ngClass]="{ 'is-invalid': submittedRequest && g.aadharRequest.errors }" />
+                      </mat-form-field>
+                  </p>
+                        <div *ngIf="submittedRequest && g.aadharRequest.errors" class="invalid-feedback">
+                          <div *ngIf="g.aadharRequest.errors.required">Aadhar Card Number is required</div>
+                          <div *ngIf="g.aadharRequest.errors.minlength">Aadhar Card Number should be 12 digits long</div>
+                          <div *ngIf="g.aadharRequest.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
+                          <div *ngIf="g.aadharRequest.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
+                        </div>
+                      
+                        
+                  <p>
+                      <mat-form-field>
+                        <label>Phone Number</label>
+                          <input matInput type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.phone.errors }" />
+                      </mat-form-field>
+                  </p>
+                        <div *ngIf="submittedRequest && g.phone.errors" class="invalid-feedback">
+                            <div *ngIf="g.phone.errors.required">OTP cannot be blank</div>
+                            <div *ngIf="g.phone.errors.minlength">OTP should be 4 digits long</div>
+                            <div *ngIf="g.phone.errors.maxlength">OTP should be 4 digits long</div>
+                            <div *ngIf="g.phone.errors.pattern">Phone number should contain only numeric digits</div>
+                        </div>
+                        
+                  <p>
+                      <button mat-raised-button class="dark">Request OTP</button>
+                  </p>
+             </mat-dialog-content>
+          </form>
+  
+  
+  
+  
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" *ngIf="displayToggle">
+            <h3>OTP Validation</h3>
+            <mat-dialog-content>
+                  <p>  
+                      <mat-form-field>
+                        <label>Aadhar No</label>
+                          <input matInput type="text" formControlName="aadhar" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.aadhar.errors }" />
+                      </mat-form-field>
+                  </p>
+                        <div *ngIf="submitted && f.aadhar.errors" class="invalid-feedback">
+                          <div *ngIf="f.aadhar.errors.required">Aadhar Card Number is required</div>
+                          <div *ngIf="f.aadhar.errors.minlength">Aadhar Card Number should be 12 digits long</div>
+                          <div *ngIf="f.aadhar.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
+                          <div *ngIf="f.aadhar.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
+                        </div>
+                      
+                        
+                  <p>
+                      <mat-form-field>
+                        <label>OTP</label>
+                          <input matInput type="text" formControlName="otp" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.otp.errors }" />
+                      </mat-form-field>
+                  </p>
+                        <div *ngIf="submitted && f.otp.errors" class="invalid-feedback">
+                            <div *ngIf="f.otp.errors.required">OTP cannot be blank</div>
+                            <div *ngIf="f.otp.errors.minlength">OTP should be 4 digits long</div>
+                            <div *ngIf="f.otp.errors.maxlength">OTP should be 4 digits long</div>
+                            <div *ngIf="f.otp.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
+                        </div>
+                        
+                  <p>
+                      <button mat-raised-button class="dark">Register</button>
+                  </p>
+             </mat-dialog-content>
+          </form>
+           

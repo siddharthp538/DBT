@@ -1,0 +1,105 @@
+<mat-card class="main-div">
+
+<mat-card-content >
+
+      <table class="example-full-width" cellspacing="0">
+
+        <tr>
+
+          <td>
+
+              <span><button mat-raised-button color="accent" (click)="toggleGas()">Gas Agency Login</button></span>
+          </td>
+
+
+        <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td>
+      
+
+        <td>
+            <span><button mat-raised-button color="accent" (click)="toggleGov()">Government Login</button></span>
+        </td>
+
+      </tr>
+
+      </table>
+
+
+  </mat-card-content>
+
+</mat-card>
+
+<div>
+
+<div class="main-div1" *ngIf="displayToggle">
+<mat-card style="margin-top: 25px">
+<form [formGroup]="gasRegisterForm" (ngSubmit)="onSubmitGas()" >
+    <mat-card-title>Gas Agency Login</mat-card-title>
+      <mat-dialog-content>
+            <p>  
+                <mat-form-field>
+                  <label>Gas Agency Reg. No.</label>
+                    <input matInput type="text" formControlName="gasregno" class="form-control" [ngClass]="{ 'is-invalid': submittedRequest && g.gasregno.errors }" />
+                </mat-form-field>
+            </p>
+                  <div *ngIf="submittedRequest && g.gasregno.errors" class="invalid-feedback">
+                    <div *ngIf="g.gasregno.errors.required">Aadhar Card Number is required</div>
+                    <div *ngIf="g.gasregno.errors.minlength">Aadhar Card Number should be 12 digits long</div>
+                    <div *ngIf="g.gasregno.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
+                    <div *ngIf="g.gasregno.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
+                  </div>
+            
+            <p>
+                <mat-form-field>
+                  <label>Password</label>
+                    <input matInput type="text" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.password.errors }" />
+                </mat-form-field>
+            </p>
+                  <div *ngIf="submittedRequest && g.password.errors" class="invalid-feedback">
+                      <div *ngIf="g.password.errors.required">Please enter the password</div>
+                      <div *ngIf="g.password.errors.minlength">Password has to contain minimum 8 characters</div>
+                  </div>
+                  
+            <p>
+                <button mat-raised-button color="accent">Login</button>
+            </p>
+       </mat-dialog-content>
+</form>
+</mat-card>
+</div>
+
+
+<div class="main-div1" *ngIf="!displayToggle">
+    <mat-card style="margin-top: 25px">
+    <form [formGroup]="govRegisterForm" (ngSubmit)="onSubmitGov()" >
+        <mat-card-title>Government Authority Login</mat-card-title>
+          <mat-dialog-content>
+                <p>  
+                    <mat-form-field>
+                      <label>Username</label>
+                        <input matInput type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                    </mat-form-field>
+                </p>
+                      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                        <div *ngIf="f.usernmame.errors.required">Aadhar Card Number is required</div>
+                      </div>
+    
+                  
+                <p>
+                    <mat-form-field>
+                      <label>Password</label>
+                        <input matInput type="text" formControlName="passwordgov" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passwordgov.errors }" />
+                    </mat-form-field>
+                </p>
+                      <div *ngIf="submitted && f.passwordgov.errors" class="invalid-feedback">
+                          <div *ngIf="f.passwordgov.errors.required">Please enter the password</div>
+                          <div *ngIf="f.passwordgov.errors.minlength">Password has to contain minimum 8 characters</div>
+                      </div>
+                      
+                <p>
+                    <button mat-raised-button color="accent">Login</button>
+                </p>
+           </mat-dialog-content>
+    </form>
+    </mat-card>
+    </div>
+
