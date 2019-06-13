@@ -37,7 +37,7 @@ participant GasAgency identified by gasAgencyRegistrationId{
   o String gasAgencyAccountNumber
   o Double gasAgencyDeficitIncurred default = 0.0
   o DateTime gasAgencyLastPaid
-  o Integer gasAgencyInventory
+  o Integer gasAgencyInventory default = 50000
   o String[] gasAgencyOrdersPlaced
   o String[] gasAgencyOrdersServed
 }
@@ -109,12 +109,13 @@ transaction VerifyToken {
 }
 
 
-// transaction RequestFunds {
-//   o String
-// }
+transaction RequestFunds {
+   o String gasAgencyRegistrationId
+   
+}
 
 transaction RelaseFunds  {
-  o String detail
+  o String gasAgencyRegistrationId
 }
 event SampleEvent {  
   o String oldValue
