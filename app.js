@@ -1,6 +1,6 @@
 const express = require('express');
 const unirest = require('unirest');
-
+const crypto =  require('crypto');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -8,23 +8,32 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/token', async (req,res)=> {
+app.post('/token', async (req,res)=> {
     let otp = Math.floor(100000 + Math.random() * 900000);
     otp %= 10000;
-    console.log(otp)
+    let message = req.body.beneficiaryAadhaarNo + '$' + otp;
+    let hash  = crypto.createHash('sha256').update('Apple').digest('hex');
     try {
   
-      const bodyToSend = {
+      let bodyToSend = {
         apikey: 'DZ5614KZ864GAY8EYARRMSNG3UMCHYVB',
         secret: '0N05X4PUQ9WNSTWI',
         usetype: 'stage',
-        phone: 8850949073,
+        phone: req.body.beneficiaryPhoneNumber,
         message: `Your One Time Password is ${otp}`,
         senderid: 'varsha'
       }
       unirest.post(`http://www.way2sms.com/api/v1/sendCampaign`).send(bodyToSend).strictSSL(false).end(async (response) => {
         console.log(bodyToSend)
-      })
+      });
+      bodyToSend = {
+        beneficiaryAadhaarNo : req.body.beneficiaryAadhaarNo,
+        beneficiaryPhoneNumber : req.body.beneficiaryPhoneNumber,
+        tokenHash : hash
+      }
+      unirest.post(`http://localhost:3000/api/CalculateToken`).send(bodyToSend).strictSSL(false).end(async (response) => {
+        console.log(response)
+      });      
       return res.status(200).send({
         message: otp
       });
