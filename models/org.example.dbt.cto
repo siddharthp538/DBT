@@ -24,7 +24,6 @@ participant GovAuthority identified by govAuthorityId {
   o String govAuthorityJurisdicition
   o String[] govAuhtorityDomain
   o String[] govAuthorityOrdersPlaced
-  o String[] govAuhtorityOrdersServed
 }
 
 participant GasAgency identified by gasAgencyRegistrationId{
@@ -89,7 +88,9 @@ transaction PlaceOrder {
 }
 // Gov Authority transaction  
 transaction NotifyGovAuthority{
+  o String gasAgencyRegistrationId
   o String beneficiaryAadhaarNo
+  o DateTime orderPlaced 
   o String[] govAuthorityOrdersPlaced
 }
 
