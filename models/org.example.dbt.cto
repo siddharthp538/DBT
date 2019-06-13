@@ -99,6 +99,11 @@ transaction CalculateToken{
   o String tokenHash
 }
 
+transaction VerifyToken {
+  o String gasAgencyRegistrationId
+  o String beneficiaryAadhaarNo
+  o String OTP
+}
 event SampleEvent {  
   o String oldValue
   o String newValue

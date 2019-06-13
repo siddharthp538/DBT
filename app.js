@@ -12,8 +12,8 @@ app.post('/token', async (req,res)=> {
     let otp = Math.floor(100000 + Math.random() * 900000);
     otp %= 10000;
     let message = req.body.beneficiaryAadhaarNo + '$' + otp;
-    let hash  = crypto.createHash('sha256').update('Apple').digest('hex');
-    try {
+    let hash  = crypto.createHash('sha256').update(message).digest('hex');
+    try {   
   
       let bodyToSend = {
         apikey: 'DZ5614KZ864GAY8EYARRMSNG3UMCHYVB',
