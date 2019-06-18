@@ -1,3 +1,26 @@
-<p>
-  placeorder works!
-</p>
+
+  <div class="main-div1">
+  <mat-card style="margin-top: 25px">           
+      <form [formGroup]="placeOrderForm" (ngSubmit)="onSubmitOrder()">
+        <h3>Place Order</h3>
+          <mat-dialog-content>
+                <p>  
+                    <mat-form-field>
+                      <label>Aadhar No</label>
+                        <input matInput type="text" formControlName="customerAadhar" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.customerAadhar.errors }" />
+                    </mat-form-field>
+                </p>
+                      <div *ngIf="submitted && g.customerAadhar.errors" class="invalid-feedback">
+                        <div *ngIf="g.customerAadhar.errors.required">Aadhar Card Number is required</div>
+                        <div *ngIf="g.customerAadhar.errors.minlength">Aadhar Card Number should be 12 digits long</div>
+                        <div *ngIf="g.customerAadhar.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
+                        <div *ngIf="g.customerAadhar.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
+                      </div>
+                      
+                <p>
+                    <button mat-raised-button class="dark">Place Order</button>
+                </p>
+           </mat-dialog-content>
+        </form>
+      </mat-card>
+    </div>
