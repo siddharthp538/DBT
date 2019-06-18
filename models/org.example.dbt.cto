@@ -52,7 +52,7 @@ participant Beneficiary identified by aadhaarNo{
   o String beneficiaryFirstName
   o String beneficiaryLastName
   o String beneficiaryAddress
-  o Integer subsidyEntitlement
+  o Integer subsidyEntitlement default = 12
   o DateTime lastSubsidyClaim
   o DateTime[] beneficiaryOrderHistory 
   o String[] hashArray
@@ -78,21 +78,18 @@ asset SubsidyAmount identified by subsidyId{
 
 
 transaction PlaceOrder { 
-  o String beneficiaryAadhaarNo
-  o Integer subsidyEntitlement
-  o Double subsidyAmount
-  o Integer gasAgencyInventory
-  o DateTime lastSubsidyClaim 
   o String gasAgencyRegistrationId
-  o String[] gasAgencyOrdersPlaced
+  o Double subsidyAmount
+  o String beneficiaryAadhaarNo
+
 }
 // Gov Authority transaction  
 transaction NotifyGovAuthority{
   o String gasAgencyRegistrationId
   o String beneficiaryAadhaarNo
-  o DateTime orderPlaced 
-  o String[] govAuthorityOrdersPlaced
   o String govAuthorityId
+  o DateTime orderPlaced 
+  
 }
 
 //calculate hash as a function of BOTH aadhaar and phone number, toke identified by id and put the hash value in tokenHash. Create a new token.
