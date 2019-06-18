@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-otp',
   templateUrl: './otp.component.html',
   styleUrls: ['./otp.component.scss']
 })
+
 export class OtpComponent implements OnInit {
+
+  data = {
+    aadharNo:'',
+    beneficiaryPhoneNumber:''
+  }
 
   displayToggle: boolean = false;
 
@@ -16,7 +23,7 @@ export class OtpComponent implements OnInit {
   requestForm: FormGroup;
     submittedRequest = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -44,8 +51,10 @@ export class OtpComponent implements OnInit {
     if (this.registerForm.invalid) {
         return;
     }
+    
 
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
+    alert('SUCCESS1!! :-)\n\n' + JSON.stringify(this.registerForm.value))
+   
   }
 
   onSubmitRequest(){
@@ -56,10 +65,32 @@ export class OtpComponent implements OnInit {
         return;
     }
 
+    this.data.aadharNo = this.requestForm.value.aadharRequest;
+    this.data.beneficiaryPhoneNumber = this.requestForm.value.phone;
+    console.log(this.data);
+
+
     this.displayToggle= true;
 
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.requestForm.value))
+    const headers = new HttpHeaders()
+    .set('Authorization', 'my-auth-token')
+    .set('Content-Type', 'application/json');
+
+    
+    this.http.post('http://localhost:5000/token', JSON.stringify(this.requestForm.value), {
+    headers: headers
+    })
+    .subscribe(data => {
+    console.log(data);
+    });
+
+
+    alert('SUCCESS11!! :-)\n\n' + JSON.stringify(this.requestForm.value))
     
   }
+
+  
+
+
 
 }

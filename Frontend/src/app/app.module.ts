@@ -11,12 +11,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatCardModule, MatTableModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component'
+import { HttpClientModule } from '@angular/common/http';
 
 import 'hammerjs';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { OtpComponent } from './otp/otp.component';
 import { ReleasefundComponent } from './releasefund/releasefund.component';
+import { PlaceorderComponent } from './placeorder/placeorder.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ReleasefundComponent } from './releasefund/releasefund.component';
     LoginComponent,
     HomeComponent,
     OtpComponent,
-    ReleasefundComponent
+    ReleasefundComponent,
+    PlaceorderComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { ReleasefundComponent } from './releasefund/releasefund.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
