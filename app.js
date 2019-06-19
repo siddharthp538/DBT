@@ -65,11 +65,10 @@ app.post('/storeOTP', (req,res)=>{
     });
     bodyToSend = {
       beneficiaryAadhaarNo : req.body.beneficiaryAadhaarNo,
-      beneficiaryPhoneNumber : req.body.beneficiaryPhoneNumber,
-      tokenHash : hash
+      OTP : otp
     }
-    unirest.post(`http://localhost:3000/api/CalculateToken`).send(bodyToSend).strictSSL(false).end(async (response) => {
-      console.log(response)
+    unirest.post(`http://localhost:3000/api/StoreOTP`).send(bodyToSend).strictSSL(false).end(async (response) => {
+      console.log(bodyToSend);
     });      
     return res.status(200).send({
       message: otp
@@ -83,6 +82,33 @@ app.post('/storeOTP', (req,res)=>{
     });
   }    
 });
+
+
+app.post('/VerifyOTP', (req,res)=>{
+
+  try {   
+
+    
+    bodyToSend = {
+      beneficiaryAadhaarNo : req.body.beneficiaryAadhaarNo,
+      OTP : req.body.otp
+    }
+    unirest.post(`http://localhost:3000/api/VerifyOTP`).send(bodyToSend).strictSSL(false).end(async (response) => {
+      console.log(bodyToSend);
+    });      
+    return res.status(200).send({
+      message: "ok"
+    });
+
+  } catch (error) {
+    console.log(error.message);
+    console.log(JSON.stringify(error))
+    return res.status(400).send({
+      message: error.message
+    });
+  }    
+});
+
 
 
 app.listen(5000, () => {
