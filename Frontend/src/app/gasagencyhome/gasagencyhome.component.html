@@ -18,6 +18,20 @@
                           <div *ngIf="h.customerAadhar.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
                         </div>                        
                   <p>
+
+                    <p>  
+                          <mat-form-field>
+                            <label>Gas Agency Registration ID</label>
+                              <input matInput type="text" formControlName="placeOrderRegId" class="form-control" [ngClass]="{ 'is-invalid': submitted && h.placeOrderRegId.errors }" />
+                          </mat-form-field>
+                    </p>
+                            <div *ngIf="submitted && h.placeOrderRegId.errors" class="invalid-feedback">
+                              <div *ngIf="h.placeOrderRegId.errors.required">Gas Agency ID is required</div>
+                              <div *ngIf="h.placeOrderRegId.errors.minlength">Gas gency Reg ID should be 12 digits long</div>
+                              <div *ngIf="h.placeOrderRegId.errors.maxlength">Gas gency Reg ID should be 12 digits long</div>
+                              <div *ngIf="h.placeOrderRegId.errors.pattern">Gas gency Reg ID should contain only numeric digits</div>
+                            </div>                        
+                    <p>
                       <button mat-raised-button class="dark">Place Order</button>
                   </p>
              </mat-dialog-content>

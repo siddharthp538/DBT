@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-gasagencyhome',
@@ -7,6 +8,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./gasagencyhome.component.scss']
 })
 export class GasagencyhomeComponent implements OnInit {
+
+  placeOrderData = {
+    
+    beneficiaryAadhaarNo: '',
+    gasAgencyRegistrationId:''
+  }
 
   displayToggle: boolean = false;
 
@@ -22,13 +29,16 @@ export class GasagencyhomeComponent implements OnInit {
     requestFundsForm: FormGroup;
     submittedAgencyRegistrationId = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
 
     this.placeOrderForm = this.formBuilder.group({
       customerAadhar: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
-      Validators.minLength(12), Validators.maxLength(12)]]  
+      Validators.minLength(12), Validators.maxLength(12)]],
+      placeOrderRegId: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
+      Validators.minLength(12), Validators.maxLength(12)]]
+
     });
 
     this.requestOtpForm = this.formBuilder.group({
@@ -61,6 +71,26 @@ export class GasagencyhomeComponent implements OnInit {
     if (this.placeOrderForm.invalid) {
         return;
     }
+
+
+    this.placeOrderData.beneficiaryAadhaarNo = this.placeOrderForm.value.customerAadhar;
+    this.placeOrderData.gasAgencyRegistrationId = this.placeOrderForm.value.placeOrderRegId;
+    
+    
+    console.log(this.placeOrderData);
+
+    const headers = new HttpHeaders()
+    .set('Authorization', 'my-auth-token')
+    .set('Content-Type', 'application/json');
+
+    
+    this.http.post('http://localhost:3000/api/PlaceOrder', JSON.stringify(this.placeOrderData), {
+    headers: headers
+    })
+    .subscribe(data => {
+    console.log(data);
+    });
+
     
     alert('SUCCESS1!! :-)\n\n' + JSON.stringify(this.placeOrderForm.value))
    
@@ -106,3 +136,5 @@ export class GasagencyhomeComponent implements OnInit {
   
 
 }
+// gasAgencyRegistrationId
+// beneficiaryAadhaarNo
