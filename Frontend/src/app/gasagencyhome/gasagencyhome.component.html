@@ -1,0 +1,119 @@
+<mat-card>Gas Agency Home</mat-card>
+<mat-tab-group>
+<mat-tab label="Place Order">   
+    <mat-card style="margin-top: 15px">           
+        <form [formGroup]="placeOrderForm" (ngSubmit)="onSubmitOrder()">
+          <h3>Place Order</h3>
+            <mat-dialog-content>
+                  <p>  
+                      <mat-form-field>
+                        <label>Aadhar No</label>
+                          <input matInput type="text" formControlName="customerAadhar" class="form-control" [ngClass]="{ 'is-invalid': submitted && h.customerAadhar.errors }" />
+                      </mat-form-field>
+                  </p>
+                        <div *ngIf="submitted && h.customerAadhar.errors" class="invalid-feedback">
+                          <div *ngIf="h.customerAadhar.errors.required">Aadhar Card Number is required</div>
+                          <div *ngIf="h.customerAadhar.errors.minlength">Aadhar Card Number should be 12 digits long</div>
+                          <div *ngIf="h.customerAadhar.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
+                          <div *ngIf="h.customerAadhar.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
+                        </div>                        
+                  <p>
+                      <button mat-raised-button class="dark">Place Order</button>
+                  </p>
+             </mat-dialog-content>
+          </form>
+      </mat-card>
+  </mat-tab>
+
+<mat-tab label="Request and Verify OTP">
+    <mat-card style="margin-top: 15px" *ngIf="!displayToggle">  
+        <form [formGroup]="requestOtpForm" (ngSubmit)="onSubmitRequestOtp()">
+      <h3>Request for OTP</h3>
+        <mat-dialog-content>
+              <p>  
+                  <mat-form-field>
+                    <label>Aadhar No</label>
+                      <input matInput type="text" formControlName="aadharRequestOtp" class="form-control" [ngClass]="{ 'is-invalid': submittedRequestOTP && g.aadharRequestOtp.errors }" />
+                  </mat-form-field>
+              </p>
+                    <div *ngIf="submittedRequestOtp && g.aadharRequestOtp.errors" class="invalid-feedback">
+                      <div *ngIf="g.aadharRequestOtp.errors.required">Aadhar Card Number is required</div>
+                      <div *ngIf="g.aadharRequestOtp.errors.minlength">Aadhar Card Number should be 12 digits long</div>
+                      <div *ngIf="g.aadharRequestOtp.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
+                      <div *ngIf="g.aadharRequestOtp.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
+                    </div>                   
+              <p>
+                  <button mat-raised-button class="dark">Request OTP</button>
+              </p>
+         </mat-dialog-content>
+      </form>
+    </mat-card>
+
+
+    <mat-card style="margin-top: 15px" *ngIf="displayToggle">
+    <form [formGroup]="verifyOtpForm" (ngSubmit)="onSubmitVerifyOtp()" *ngIf="displayToggle">
+        <h3>OTP Validation</h3>
+        <mat-dialog-content>
+              <p>  
+                  <mat-form-field>
+                    <label>Aadhar No</label>
+                      <input matInput type="text" formControlName="aadharVerifyOtp" class="form-control" [ngClass]="{ 'is-invalid': submittedVerifyOtp && f.aadharVerifyOtp.errors }" />
+                  </mat-form-field>
+              </p>
+                    <div *ngIf="submittedVerifyOtp && f.aadharVerifyOtp.errors" class="invalid-feedback">
+                      <div *ngIf="f.aadharVerifyOtp.errors.required">Aadhar Card Number is required</div>
+                      <div *ngIf="f.aadharVerifyOtp.errors.minlength">Aadhar Card Number should be 12 digits long</div>
+                      <div *ngIf="f.aadharVerifyOtp.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
+                      <div *ngIf="f.aadharVerifyOtp.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
+                    </div>
+                  
+                    
+              <p>
+                  <mat-form-field>
+                    <label>OTP</label>
+                      <input matInput type="text" formControlName="otp" class="form-control" [ngClass]="{ 'is-invalid': submittedVerifyOtp && f.otp.errors }" />
+                  </mat-form-field>
+              </p>
+                    <div *ngIf="submittedVerifyOtp && f.otp.errors" class="invalid-feedback">
+                        <div *ngIf="f.otp.errors.required">OTP cannot be blank</div>
+                        <div *ngIf="f.otp.errors.minlength">OTP should be 4 digits long</div>
+                        <div *ngIf="f.otp.errors.maxlength">OTP should be 4 digits long</div>
+                        <div *ngIf="f.otp.errors.pattern">OTP Card Number should contain only numeric digits</div>
+                    </div>
+                    
+              <p>
+                  <button mat-raised-button class="dark">Register</button>
+              </p>
+         </mat-dialog-content>
+      </form>
+    </mat-card>
+
+
+  </mat-tab>
+
+  <mat-tab label="Request Funds">
+      <mat-card style="margin-top: 15px">           
+          <form [formGroup]="requestFundsForm" (ngSubmit)="onSubmitRequestFunds()">
+            <h3>Place Order</h3>
+              <mat-dialog-content>
+                    <p>  
+                        <mat-form-field>
+                          <label>Gas Agency Registration ID</label>
+                            <input matInput type="text" formControlName="gasAgencyRegistrationId" class="form-control" [ngClass]="{ 'is-invalid': submittedAgencyRegistrationId && e.gasAgencyRegistrationId.errors }" />
+                        </mat-form-field>
+                    </p>
+                          <div *ngIf="submittedAgencyRegistrationId && e.gasAgencyRegistrationId.errors" class="invalid-feedback">
+                            <div *ngIf="e.gasAgencyRegistrationId.errors.required">Gas Registration ID is required</div>
+                            <div *ngIf="e.gasAgencyRegistrationId.errors.minlength">Gas Registration ID should be 10 digits long</div>
+                            <div *ngIf="e.gasAgencyRegistrationId.errors.maxlength">Gas Registration ID should be 10 digits long</div>
+                            <div *ngIf="e.gasAgencyRegistrationId.errors.pattern">Gas Registration ID contain only numeric digits</div>
+                          </div>                        
+                    <p>
+                        <button mat-raised-button class="dark">Request Funds</button>
+                    </p>
+               </mat-dialog-content>
+            </form>
+        </mat-card>
+    
+  </mat-tab>
+</mat-tab-group>

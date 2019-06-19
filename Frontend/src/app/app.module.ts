@@ -12,6 +12,7 @@ import { MatFormFieldModule, MatCardModule, MatTableModule } from '@angular/mate
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component'
 import { HttpClientModule } from '@angular/common/http';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import 'hammerjs';
 import { LoginComponent } from './login/login.component';
@@ -19,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 import { OtpComponent } from './otp/otp.component';
 import { ReleasefundComponent } from './releasefund/releasefund.component';
 import { PlaceorderComponent } from './placeorder/placeorder.component';
+import { GasagencyhomeComponent } from './gasagencyhome/gasagencyhome.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { PlaceorderComponent } from './placeorder/placeorder.component';
     HomeComponent,
     OtpComponent,
     ReleasefundComponent,
-    PlaceorderComponent
+    PlaceorderComponent,
+    GasagencyhomeComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { PlaceorderComponent } from './placeorder/placeorder.component';
     MatFormFieldModule,
     MatCardModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

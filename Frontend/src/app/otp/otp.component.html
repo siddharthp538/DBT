@@ -4,15 +4,15 @@
             <mat-dialog-content>
                   <p>  
                       <mat-form-field>
-                        <label>Aadhar No</label>
-                          <input matInput type="text" formControlName="aadharRequest" class="form-control" [ngClass]="{ 'is-invalid': submittedRequest && g.aadharRequest.errors }" />
+                        <label>Aadhar Card No</label>
+                          <input matInput type="text" formControlName="aadharOtpRequest" class="form-control" [ngClass]="{ 'is-invalid': submittedRequest && g.aadharOtpRequest.errors }" />
                       </mat-form-field>
                   </p>
-                        <div *ngIf="submittedRequest && g.aadharRequest.errors" class="invalid-feedback">
-                          <div *ngIf="g.aadharRequest.errors.required">Aadhar Card Number is required</div>
-                          <div *ngIf="g.aadharRequest.errors.minlength">Aadhar Card Number should be 12 digits long</div>
-                          <div *ngIf="g.aadharRequest.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
-                          <div *ngIf="g.aadharRequest.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
+                        <div *ngIf="submittedRequest && g.aadharOtpRequest.errors" class="invalid-feedback">
+                          <div *ngIf="g.aadharOtpRequest.errors.required">Aadhar Card Number is required</div>
+                          <div *ngIf="g.aadharOtpRequest.errors.minlength">Aadhar Card Number should be 12 digits long</div>
+                          <div *ngIf="g.aadharOtpRequest.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
+                          <div *ngIf="g.aadharOtpRequest.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
                         </div>
                       
                         
