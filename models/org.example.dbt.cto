@@ -55,8 +55,14 @@ participant Beneficiary identified by aadhaarNo{
   o Integer subsidyEntitlement default = 12
   o DateTime lastSubsidyClaim
   o DateTime[] beneficiaryOrderHistory 
+  o String[] firstOTP
   o String[] hashArray
+  o String orderStatus
 }
+
+// asset OrderStatus identified by beneficiaryAadhaarNo{
+
+// }
 
 asset LPGCylinder identified by lpgCylinderUid{
   o String lpgCylinderUid
@@ -113,6 +119,16 @@ transaction RelaseFunds  {
 }
 transaction RequestFunds {
   o String gasAgencyRegistrationId
+}
+
+transaction StoreOTP  {
+  o String OTP
+  o String beneficiaryAadhaarNo
+}
+
+transaction VerifyOTP  {
+  o String OTP
+  o String beneficiaryAadhaarNo
 }
 
 event SampleEvent {  
