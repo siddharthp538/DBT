@@ -13,13 +13,19 @@ app.post('/token', async (req,res)=> {
     otp %= 10000;
     let message = req.body.beneficiaryAadhaarNo + '$' + otp;
     let hash  = crypto.createHash('sha256').update(message).digest('hex');
+    let phoneNumber = 0;
+    unirest.get(`http://localhost:3000/api/Beneficiary/${req.body.beneficiaryAadhaarNo}`).strictSSL(false).end(async (response) => {
+      phoneNumber = response.beneficiaryPhoneNumber;
+      console.log(response.beneficiaryPhoneNumber);
+      console.log(response.body.beneficiaryPhoneNumber);
+    }); 
     try {   
   
       let bodyToSend = {
         apikey: 'DZ5614KZ864GAY8EYARRMSNG3UMCHYVB',
         secret: '0N05X4PUQ9WNSTWI',
         usetype: 'stage',
-        phone: req.body.beneficiaryPhoneNumber,
+        phone: phoneNumber,
         message: `Your One Time Password is ${otp}`,
         senderid: 'varsha'
       }
@@ -28,7 +34,7 @@ app.post('/token', async (req,res)=> {
       });
       bodyToSend = {
         beneficiaryAadhaarNo : req.body.beneficiaryAadhaarNo,
-        beneficiaryPhoneNumber : req.body.beneficiaryPhoneNumber,
+        beneficiaryPhoneNumber : phoneNumber,
         tokenHash : hash
       }
       unirest.post(`http://localhost:3000/api/CalculateToken`).send(bodyToSend).strictSSL(false).end(async (response) => {
@@ -50,6 +56,7 @@ app.post('/token', async (req,res)=> {
 app.post('/storeOTP', (req,res)=>{
   let otp = Math.floor(100000 + Math.random() * 900000);
   otp %= 10000;
+  console.log(otp);
   try {
     let phoneNumber = '';   
     unirest.get(`http://localhost:3000/api/Beneficiary/${req.body.beneficiaryAadhaarNo}`).strictSSL(false).end(async (response) => {
@@ -91,7 +98,6 @@ app.post('/storeOTP', (req,res)=>{
 
 app.post('/VerifyOTP', (req,res)=>{
 
-  try {   
 
     
     bodyToSend = {
@@ -99,19 +105,17 @@ app.post('/VerifyOTP', (req,res)=>{
       OTP : req.body.otp
     }
     unirest.post(`http://localhost:3000/api/VerifyOTP`).send(bodyToSend).strictSSL(false).end(async (response) => {
-      console.log(bodyToSend);
+      if(response.body.error){
+        res.send(response.body.error);
+      } 
+      else{
+        res.send({
+          message: "ok"
+        })
+      }   
     });      
-    return res.status(200).send({
-      message: "ok"
-    });
 
-  } catch (error) {
-    console.log(error.message);
-    console.log(JSON.stringify(error))
-    return res.status(400).send({
-      message: error.message
-    });
-  }    
+     
 });
 
 

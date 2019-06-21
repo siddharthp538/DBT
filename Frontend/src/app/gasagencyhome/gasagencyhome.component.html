@@ -44,6 +44,8 @@
                           <input matInput type="text" formControlName="placeOrderOtp" class="form-control" [ngClass]="{ 'is-invalid': submittedOtp && c.placeOrderOtp.errors }" />
                       </mat-form-field>
                     </p>
+
+                    <div *ngIf="wrongOTP">Incorrect OTP entered</div>
     
                     <p>
                         <button mat-raised-button class="dark">Verify OTP</button>
@@ -52,6 +54,19 @@
             </form>
           </form>
 
+          <p>
+          <button mat-raised-button colour="accent" *ngIf="OTPverified" (click)="placeOrder()">Place Order</button>
+          </p>
+
+          <div *ngIf="orderSuccess">
+            <span>Order placed successfully!</span>
+            <button mat-button (click)="viewOrderDetails()">View Order Details</button>
+          </div>
+
+          <div *ngIf="orderFailure">
+              <p>There was an error placing your order. Make sure you haven't already placed an order this month</p>
+              <button mat-button (click)="viewOrderDetails()">View Order History</button>
+          </div>
          
       </mat-card>
   </mat-tab>
@@ -97,6 +112,19 @@
                       <div *ngIf="f.aadharVerifyOtp.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
                       <div *ngIf="f.aadharVerifyOtp.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
                     </div>
+
+                    <p>  
+                        <mat-form-field>
+                          <label>Gas Agency Registration ID</label>
+                            <input matInput type="text" formControlName="gasAgencyOtp" class="form-control" [ngClass]="{ 'is-invalid': submittedVerifyOtp && f.gasAgencyOtp.errors }" />
+                        </mat-form-field>
+                    </p>
+                          <div *ngIf="submittedVerifyOtp && f.gasAgencyOtp.errors" class="invalid-feedback">
+                            <div *ngIf="f.gasAgencyOtp.errors.required">Gas Agency Number is required</div>
+                            <div *ngIf="f.gasAgencyOtp.errors.minlength">Gas Agency Number should be 12 digits long</div>
+                            <div *ngIf="f.gasAgencyOtp.errors.maxlength">Gas Agency Number should be 12 digits long</div>
+                            <div *ngIf="f.gasAgencyOtp.errors.pattern">Gas Agency Number should contain only numeric digits</div>
+                          </div>
                   
                     
               <p>

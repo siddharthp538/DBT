@@ -108,7 +108,8 @@ transaction VerifyToken {
   o String gasAgencyRegistrationId
   o String beneficiaryAadhaarNo
   o String OTP
-  o String lpgCylinderUid
+  o Double marketPrice default = 800.0
+  o Double subsidyRate default = 0.32
 }
 
 
