@@ -60,7 +60,7 @@ app.post('/storeOTP', (req,res)=>{
     let bodyToSend = {
       apikey: 'DZ5614KZ864GAY8EYARRMSNG3UMCHYVB',
       secret: '0N05X4PUQ9WNSTWI',
-      usetype: 'stage',
+      usetype: 'stage', 
       phone: phoneNumber,
       message: `Your One Time Password is ${otp}`,
       senderid: 'varsha'
