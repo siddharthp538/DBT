@@ -50,13 +50,18 @@ app.post('/token', async (req,res)=> {
 app.post('/storeOTP', (req,res)=>{
   let otp = Math.floor(100000 + Math.random() * 900000);
   otp %= 10000;
-  try {   
-
+  try {
+    let phoneNumber = '';   
+    unirest.get(`http://localhost:3000/api/Beneficiary/${req.body.beneficiaryAadhaarNo}`).strictSSL(false).end(async (response) => {
+      phoneNumber = response.beneficiaryPhoneNumber;
+      console.log(response.beneficiaryPhoneNumber);
+      console.log(response.body.beneficiaryPhoneNumber);
+    });
     let bodyToSend = {
       apikey: 'DZ5614KZ864GAY8EYARRMSNG3UMCHYVB',
       secret: '0N05X4PUQ9WNSTWI',
       usetype: 'stage',
-      phone: req.body.beneficiaryPhoneNumber,
+      phone: phoneNumber,
       message: `Your One Time Password is ${otp}`,
       senderid: 'varsha'
     }
