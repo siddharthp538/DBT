@@ -16,9 +16,13 @@ export class GasagencyhomeComponent implements OnInit {
   }
 
   displayToggle: boolean = false;
+  displayPlaceOrderOTP: boolean = false;
 
   placeOrderForm: FormGroup;
     submitted = false;
+
+  placeOrderOtpForm : FormGroup
+    submittedOtp = false;
 
   requestOtpForm: FormGroup;
   submittedRequestOtp = false;
@@ -26,8 +30,12 @@ export class GasagencyhomeComponent implements OnInit {
   verifyOtpForm: FormGroup;
     submittedVerifyOtp = false;
 
-    requestFundsForm: FormGroup;
+  requestFundsForm: FormGroup;
     submittedAgencyRegistrationId = false;
+
+    updateCustomerInfoForm: FormGroup;
+    submittedUpdateCustomerInfo = false;
+
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
 
@@ -38,6 +46,12 @@ export class GasagencyhomeComponent implements OnInit {
       Validators.minLength(12), Validators.maxLength(12)]],
       placeOrderRegId: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
       Validators.minLength(12), Validators.maxLength(12)]]
+
+    });
+
+    this.placeOrderOtpForm = this.formBuilder.group({
+      placeOrderOtp: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
+      Validators.minLength(4), Validators.maxLength(4)]]
 
     });
 
@@ -57,12 +71,19 @@ export class GasagencyhomeComponent implements OnInit {
       gasAgencyRegistrationId: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
       Validators.minLength(10), Validators.maxLength(10)]]    
     });
+
+    this.updateCustomerInfoForm = this.formBuilder.group({
+      updateAadhar: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
+      Validators.minLength(12), Validators.maxLength(12)]]    
+    });
   }
 
   get h() { return this.placeOrderForm.controls; }
+  get c() { return this.placeOrderOtpForm.controls; }
   get g() { return this.requestOtpForm.controls; }
   get f() { return this.verifyOtpForm.controls; }
   get e() { return this.requestFundsForm.controls; }
+  get d() { return this.updateCustomerInfoForm.controls; }
 
   onSubmitOrder(){
     this.submitted = true;
@@ -71,6 +92,8 @@ export class GasagencyhomeComponent implements OnInit {
     if (this.placeOrderForm.invalid) {
         return;
     }
+
+    this.displayPlaceOrderOTP = true;
 
 
     this.placeOrderData.beneficiaryAadhaarNo = this.placeOrderForm.value.customerAadhar;
@@ -82,17 +105,32 @@ export class GasagencyhomeComponent implements OnInit {
     const headers = new HttpHeaders()
     .set('Authorization', 'my-auth-token')
     .set('Content-Type', 'application/json');
-
+    
     
     this.http.post('http://localhost:3000/api/PlaceOrder', JSON.stringify(this.placeOrderData), {
     headers: headers
     })
     .subscribe(data => {
     console.log(data);
+    
     });
 
     
     alert('SUCCESS1!! :-)\n\n' + JSON.stringify(this.placeOrderForm.value))
+   
+  }
+
+
+  onSubmitPlaceOrderOtp(){
+    this.submittedOtp = true;
+
+    // stop here if form is invalid
+    if (this.placeOrderOtpForm.invalid) {
+        return;
+    }
+    
+
+    alert('SUCCESS OTP!! :-)\n\n' + JSON.stringify(this.placeOrderOtpForm.value))
    
   }
 
@@ -131,6 +169,18 @@ export class GasagencyhomeComponent implements OnInit {
       }
       
       alert('SUCCESS1!! :-)\n\n' + JSON.stringify(this.requestFundsForm.value))
+     
+    }
+
+    onSubmitCustomerInfo(){
+      this.submittedUpdateCustomerInfo = true;
+  
+      // stop here if form is invalid
+      if (this.updateCustomerInfoForm.invalid) {
+          return;
+      }
+      
+      alert('SUCCESS1!! :-)\n\n' + JSON.stringify(this.updateCustomerInfoForm.value))
      
     }
   

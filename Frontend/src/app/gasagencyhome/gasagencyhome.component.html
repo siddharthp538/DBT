@@ -32,10 +32,27 @@
                               <div *ngIf="h.placeOrderRegId.errors.pattern">Gas gency Reg ID should contain only numeric digits</div>
                             </div>                        
                     <p>
-                      <button mat-raised-button class="dark">Place Order</button>
+                      <button mat-raised-button class="dark">Send OTP</button>
                   </p>
              </mat-dialog-content>
+
+             <form [formGroup]="placeOrderOtpForm" (ngSubmit)="onSubmitPlaceOrderOtp()" *ngIf="displayPlaceOrderOTP">     
+                <mat-dialog-content>
+                    <p >  
+                      <mat-form-field>
+                        <label>OTP</label>
+                          <input matInput type="text" formControlName="placeOrderOtp" class="form-control" [ngClass]="{ 'is-invalid': submittedOtp && c.placeOrderOtp.errors }" />
+                      </mat-form-field>
+                    </p>
+    
+                    <p>
+                        <button mat-raised-button class="dark">Verify OTP</button>
+                    </p>
+                  </mat-dialog-content>
+            </form>
           </form>
+
+         
       </mat-card>
   </mat-tab>
 
@@ -108,7 +125,7 @@
   <mat-tab label="Request Funds">
       <mat-card style="margin-top: 15px">           
           <form [formGroup]="requestFundsForm" (ngSubmit)="onSubmitRequestFunds()">
-            <h3>Place Order</h3>
+            <h3>Request Funds</h3>
               <mat-dialog-content>
                     <p>  
                         <mat-form-field>
@@ -129,5 +146,31 @@
             </form>
         </mat-card>
     
+  </mat-tab>
+
+  <mat-tab label="Update Customer Information">
+    <mat-card style="margin-top: 15px">           
+        <form [formGroup]="updateCustomerInfoForm" (ngSubmit)="onSubmitCustomerInfo()">
+          <h3>Update Customer Information</h3>
+            <mat-dialog-content>
+                  <p>  
+                      <mat-form-field>
+                        <label>Customer Aadhar No</label>
+                          <input matInput type="text" formControlName="updateAadhar" class="form-control" [ngClass]="{ 'is-invalid': submittedUpdateCustomerInfo && d.updateAadhar.errors }" />
+                      </mat-form-field>
+                  </p>
+                        <div *ngIf="submittedUpdateCustomerInfo && d.updateAadhar.errors" class="invalid-feedback">
+                          <div *ngIf="d.updateAadhar.errors.required">Aadhar No is required</div>
+                          <div *ngIf="d.updateAadhar.errors.minlength">Aadhar card No should be should be 12 digits long</div>
+                          <div *ngIf="d.updateAadhar.errors.maxlength">Aadhar Card No should be 10 digits long</div>
+                          <div *ngIf="d.updateAadhar.errors.pattern">Aadhar Cards should contain only numeric digits</div>
+                        </div>                        
+                  <p>
+                      <button mat-raised-button class="dark">Update Customer Information</button>
+                  </p>
+             </mat-dialog-content>
+          </form>
+      </mat-card>
+  
   </mat-tab>
 </mat-tab-group>
