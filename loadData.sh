@@ -19,7 +19,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{  
    "$class": "org.example.dbt.GasAgency",  
    "gasAgencyRegistrationId": "123456789112",  
-   "gasAgencyPassword":"AzainIsDyatlov"
+   "gasAgencyPassword":"AzainIsDyatlov",
    "gasAgencyOwner": "A",  
    "gasAgencyState": "J",  
    "gasAgencyDistrict": "Panvel",  
