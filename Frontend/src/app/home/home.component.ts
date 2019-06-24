@@ -11,10 +11,6 @@ export class HomeComponent implements OnInit {
                    "assets/modi.jpg",
                    "assets/lpg.jpg",
                    "assets/ration.jpeg"]
-  toggle: boolean = false;
-  toggleDisplay(){
-    this.toggle = !this.toggle;
-  }
 
   constructor() { }
 

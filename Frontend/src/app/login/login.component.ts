@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         return;
     }
 
-    this.router.navigate(['/otp']);
+    this.router.navigate(['/gasagencyhome']);
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.gasRegisterForm.value))
     
   }
