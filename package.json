@@ -3,7 +3,7 @@
     "composer": "^0.20.7"
   },
   "name": "dbtnetwork",
-  "version": "0.0.39",
+  "version": "0.0.42",
   "description": "subsidy transfer system",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/dbtnetwork.bna",

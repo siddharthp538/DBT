@@ -16,83 +16,79 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/token', async (req,res)=> {
-    let otp = Math.floor(100000 + Math.random() * 900000);
-    otp %= 10000;
+    let otp = Math.floor(Math.random() * 10000);
+    console.log(otp);
     let message = req.body.beneficiaryAadhaarNo + '$' + otp;
     let hash  = crypto.createHash('sha256').update(message).digest('hex');
     let phoneNumber = 0;
     unirest.get(`http://localhost:3000/api/Beneficiary/${req.body.beneficiaryAadhaarNo}`).strictSSL(false).end(async (response) => {
-      phoneNumber = response.beneficiaryPhoneNumber;
-      console.log(response.beneficiaryPhoneNumber);
-      console.log(response.body.beneficiaryPhoneNumber);
+      phoneNumber = '91' + response.body.beneficiaryPhoneNumber;
+      console.log(phoneNumber);      
+      nexmo.message.sendSms('Bhaiya Blockchains', phoneNumber, otp, (err, responseData) => {
+        console.log("error is : " + err);
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(responseData);
+            if(responseData.messages[0]['status'] === "0") {
+                let bodyToSend = {
+                beneficiaryAadhaarNo : req.body.beneficiaryAadhaarNo,
+                beneficiaryPhoneNumber : phoneNumber,
+                tokenHash : hash
+              }
+              unirest.post(`http://localhost:3000/api/CalculateToken`).send(bodyToSend).strictSSL(false).end(async (response) => {
+                res.status(200).send({
+                  message: otp
+                });
+              });      
+            } else {
+                console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+                res.send("error occured");
+            }
+        }
+      });
     }); 
-    try {   
-  
-      let bodyToSend = {
-        apikey: 'DZ5614KZ864GAY8EYARRMSNG3UMCHYVB',
-        secret: '0N05X4PUQ9WNSTWI',
-        usetype: 'stage',
-        phone: phoneNumber,
-        message: `Your One Time Password is ${otp}`,
-        senderid: 'varsha'
-      }
-      unirest.post(`http://www.way2sms.com/api/v1/sendCampaign`).send(bodyToSend).strictSSL(false).end(async (response) => {
-        console.log(bodyToSend)
-      });
-      bodyToSend = {
-        beneficiaryAadhaarNo : req.body.beneficiaryAadhaarNo,
-        beneficiaryPhoneNumber : phoneNumber,
-        tokenHash : hash
-      }
-      unirest.post(`http://localhost:3000/api/CalculateToken`).send(bodyToSend).strictSSL(false).end(async (response) => {
-        console.log(response)
-      });      
-      return res.status(200).send({
-        message: otp
-      });
-  
-    } catch (error) {
-      console.log(error.message);
-      console.log(JSON.stringify(error))
-      return res.status(400).send({
-        message: error.message
-      });
-    }
 });
 
 app.post('/storeOTP', (req,res)=>{
-  let otp = Math.floor(100000 + Math.random() * 900000);
-  otp %= 10000;
+  let otp = Math.floor(10000*Math.random());
   console.log(otp);
   try {
     let phoneNumber = '';   
     unirest.get(`http://localhost:3000/api/Beneficiary/${req.body.beneficiaryAadhaarNo}`).strictSSL(false).end(async (response) => {
-      phoneNumber = response.beneficiaryPhoneNumber;
-      console.log(response.beneficiaryPhoneNumber);
+      phoneNumber = response.body.beneficiaryPhoneNumber;
       console.log(response.body.beneficiaryPhoneNumber);
+      console.log(phoneNumber);
+      const toNumber = '91' + phoneNumber;
+      console.log(toNumber);
+      nexmo.message.sendSms('Bhaiya Blockchains', toNumber, otp, (err, responseData) => {
+        console.log("error is : " + err);
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(responseData);
+            if(responseData.messages[0]['status'] === "0") {
+                console.log("Message sent successfully.");
+                bodyToSend = {
+                  beneficiaryAadhaarNo : req.body.beneficiaryAadhaarNo,
+                  OTP : otp
+                }
+                unirest.post(`http://localhost:3000/api/StoreOTP`).send(bodyToSend).strictSSL(false).end(async (response) => {
+                  console.log(bodyToSend);
+                  res.status(200).send({
+                    message: otp
+                  });
+                });      
+            
+            } else {
+                console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+                res.send("error occured");
+            }
+        }
+      });
     });
-    let bodyToSend = {
-      apikey: 'DZ5614KZ864GAY8EYARRMSNG3UMCHYVB',
-      secret: '0N05X4PUQ9WNSTWI',
-      usetype: 'stage', 
-      phone: phoneNumber,
-      message: `Your One Time Password is ${otp}`,
-      senderid: 'varsha'
-    }
-    unirest.post(`http://www.way2sms.com/api/v1/sendCampaign`).send(bodyToSend).strictSSL(false).end(async (response) => {
-      console.log(bodyToSend)
-    });
-    bodyToSend = {
-      beneficiaryAadhaarNo : req.body.beneficiaryAadhaarNo,
-      OTP : otp
-    }
-    unirest.post(`http://localhost:3000/api/StoreOTP`).send(bodyToSend).strictSSL(false).end(async (response) => {
-      console.log(bodyToSend);
-    });      
-    return res.status(200).send({
-      message: otp
-    });
-
+   
+  
   } catch (error) {
     console.log(error.message);
     console.log(JSON.stringify(error))
@@ -147,7 +143,7 @@ app.post('/otp', (req,res)=>{
             res.send("error occured");
         }
     }
-})
+  });
 
 
 });
