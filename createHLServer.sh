@@ -1,0 +1,1 @@
+   composer-rest-server -c admin@dbtnetwork -n never -u true -d n -w true
