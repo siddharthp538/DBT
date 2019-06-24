@@ -169,7 +169,7 @@ export class GasagencyhomeComponent implements OnInit {
     })
     .subscribe(data => {
     console.log(data);
-    if(data.statusCode == 500)
+    if(data)
     this.wrongOTP = true;
     else
     {
