@@ -51,12 +51,12 @@
             <p>
                 <mat-form-field>
                   <label>Password</label>
-                    <input matInput type="text" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.password.errors }" />
+                    <input matInput type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.password.errors }" />
                 </mat-form-field>
             </p>
                   <div *ngIf="submittedRequest && g.password.errors" class="invalid-feedback">
                       <div *ngIf="g.password.errors.required">Please enter the password</div>
-                      <div *ngIf="g.password.errors.minlength">Password has to contain minimum 8 characters</div>
+                      <div *ngIf="g.password.errors.pattern">Password must contain minimum 8 characters, an upper case character, lower case character, number and special character</div>
                   </div>
                   
             <p>
@@ -87,12 +87,12 @@
                 <p>
                     <mat-form-field>
                       <label>Password</label>
-                        <input matInput type="text" formControlName="passwordgov" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passwordgov.errors }" />
+                        <input matInput type="password" formControlName="passwordgov" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passwordgov.errors }" />
                     </mat-form-field>
                 </p>
                       <div *ngIf="submitted && f.passwordgov.errors" class="invalid-feedback">
                           <div *ngIf="f.passwordgov.errors.required">Please enter the password</div>
-                          <div *ngIf="f.passwordgov.errors.minlength">Password has to contain minimum 8 characters</div>
+                          <div *ngIf="f.passwordgov.errors.pattern">Password must contain minimum 8 characters,an upper case character, lower case character, number and special character</div>
                       </div>
                       
                 <p>

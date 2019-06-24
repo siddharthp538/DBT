@@ -21,6 +21,7 @@ namespace org.example.dbt
 participant GovAuthority identified by govAuthorityId {
   o String govAuthorityId
   o String govAuthorityTitle
+  o String govAuhtorityPassword
   o String govAuthorityJurisdicition
   o String[] govAuhtorityDomain
   o String[] govAuthorityOrdersPlaced
@@ -28,6 +29,7 @@ participant GovAuthority identified by govAuthorityId {
 
 participant GasAgency identified by gasAgencyRegistrationId{
   o String gasAgencyRegistrationId
+  o String gasAgencyPassword
   o String gasAgencyOwner
   o String gasAgencyState
   o String gasAgencyDistrict
