@@ -2,6 +2,13 @@ const express = require('express');
 const unirest = require('unirest');
 const crypto =  require('crypto');
 const bodyParser = require('body-parser');
+const Nexmo = require('nexmo');
+
+const nexmo = new Nexmo({
+  apiKey: 'f9c55a37',
+  apiSecret: 'S9gkoR7jlxM8I5DH',
+});
+
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -118,7 +125,32 @@ app.post('/VerifyOTP', (req,res)=>{
      
 });
 
+app.post('/otp', (req,res)=>{
+  let otp = Math.floor(Math.random()*100000);
+  const from =  'Ministry of Oil & Natural Gas';
+  console.log(from);
+  const to = '91'+req.body.phone;
+  const text = otp;
+  console.log(to);
+  console.log(text);
+  nexmo.message.sendSms('Bhaiya Blockchains', to, text, (err, responseData) => {
+    console.log("error is : " + err);
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(responseData);
+        if(responseData.messages[0]['status'] === "0") {
+            console.log("Message sent successfully.");
+            res.send("otp sent!");
+        } else {
+            console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+            res.send("error occured");
+        }
+    }
+})
 
+
+});
 
 app.listen(5000, () => {
     console.log('Node server running on port 5000....');
