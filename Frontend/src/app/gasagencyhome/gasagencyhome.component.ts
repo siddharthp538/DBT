@@ -318,8 +318,17 @@ export class GasagencyhomeComponent implements OnInit {
     this.orderPlacedData = data;
     this.validateOTPData2.orderPlaced = this.orderPlacedData.transactionId;
     console.log(this.validateOTPData2);
+
+    this.http.post('http://localhost:3000/api/NotifyGovAuthority', JSON.stringify(this.validateOTPData2), {
+      headers: headers
+      })
+      .subscribe(data => {
+      console.log(data);
+     });
+
     });
 
+   
     
    
      }
