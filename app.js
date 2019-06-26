@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.post('/token', async (req,res)=> {
-    let otp = Math.floor(Math.random() * 10000) + 10000;
+    let otp = Math.floor(1000 + Math.random() * 9000);;
     console.log(otp);
     let message = req.body.beneficiaryAadhaarNo + '$' + otp;
     let hash  = crypto.createHash('sha256').update(message).digest('hex');
@@ -53,7 +53,7 @@ app.post('/token', async (req,res)=> {
 });
 
 app.post('/storeOTP', (req,res)=>{
-  let otp = Math.floor(Math.random() * 10000) + 10000;
+  let otp = Math.floor(1000 + Math.random() * 9000);
   console.log(otp);
   try {
     let phoneNumber = '';   
@@ -104,7 +104,7 @@ app.post('/storeOTP', (req,res)=>{
 app.post('/VerifyOTP', (req,res)=>{
 
 
-    
+    console.log("inside verify otp");
     bodyToSend = {
       beneficiaryAadhaarNo : req.body.beneficiaryAadhaarNo,
       OTP : req.body.otp
