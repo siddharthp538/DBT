@@ -3,6 +3,7 @@ const unirest = require('unirest');
 const crypto =  require('crypto');
 const bodyParser = require('body-parser');
 const Nexmo = require('nexmo');
+const cors = require('cors');
 
 const nexmo = new Nexmo({
   apiKey: 'f9c55a37',
@@ -14,9 +15,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
+app.use(cors());
 
 app.post('/token', async (req,res)=> {
-    let otp = Math.floor(Math.random() * 10000);
+    let otp = Math.floor(1000 + Math.random() * 9000);;
     console.log(otp);
     let message = req.body.beneficiaryAadhaarNo + '$' + otp;
     let hash  = crypto.createHash('sha256').update(message).digest('hex');
@@ -51,7 +53,7 @@ app.post('/token', async (req,res)=> {
 });
 
 app.post('/storeOTP', (req,res)=>{
-  let otp = Math.floor(10000*Math.random());
+  let otp = Math.floor(1000 + Math.random() * 9000);
   console.log(otp);
   try {
     let phoneNumber = '';   
@@ -102,12 +104,14 @@ app.post('/storeOTP', (req,res)=>{
 app.post('/VerifyOTP', (req,res)=>{
 
 
-    
+    console.log("inside verify otp");
     bodyToSend = {
       beneficiaryAadhaarNo : req.body.beneficiaryAadhaarNo,
       OTP : req.body.otp
     }
     unirest.post(`http://localhost:3000/api/VerifyOTP`).send(bodyToSend).strictSSL(false).end(async (response) => {
+      console.log(response.body.error);
+      console.log(response.body);
       if(response.body.error){
         res.send(response.body.error);
       } 
