@@ -95,7 +95,7 @@ transaction NotifyGovAuthority{
   o String gasAgencyRegistrationId
   o String beneficiaryAadhaarNo
   o String govAuthorityId
-  o DateTime orderPlaced 
+  o String orderPlaced 
   
 }
 

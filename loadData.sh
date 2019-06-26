@@ -19,7 +19,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{  
    "$class": "org.example.dbt.GasAgency",  
    "gasAgencyRegistrationId": "123456789112",  
-   "gasAgencyPassword":"AzainIsDyatlov"
+   "gasAgencyPassword":"AzainIsDyatlov@123",
    "gasAgencyOwner": "A",  
    "gasAgencyState": "J",  
    "gasAgencyDistrict": "Panvel",  
@@ -37,7 +37,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
    "$class": "org.example.dbt.GovAuthority",  
    "govAuthorityId": "123456789112",  
    "govAuthorityTitle": "Ministry of Oil and Natural Gas", 
-   "govAuhtorityPassword": "suckMyBalls", 
+   "govAuhtorityPassword": "suckMyBalls@123", 
    "govAuthorityJurisdicition": "National",  
    "govAuhtorityDomain": ["LPG"],  
    "govAuthorityOrdersPlaced": []  

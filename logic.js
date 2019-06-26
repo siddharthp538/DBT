@@ -1,4 +1,10 @@
-var crypto = require('crypto');
+const obj = {
+    name : 'sid',
+    lname : 'pandey'
+}
 
-var sha256 = crypto.createHash('sha256').update('abcd').digest('hex');
-console.log(sha256);
+let str = JSON.stringify(obj);
+console.log(str);
+
+let ans = JSON.parse(str);
+console.log(ans);

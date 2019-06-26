@@ -42,10 +42,10 @@
                 </mat-form-field>
             </p>
                   <div *ngIf="submittedRequest && g.gasregno.errors" class="invalid-feedback">
-                    <div *ngIf="g.gasregno.errors.required">Aadhar Card Number is required</div>
-                    <div *ngIf="g.gasregno.errors.minlength">Aadhar Card Number should be 12 digits long</div>
-                    <div *ngIf="g.gasregno.errors.maxlength">Aadhar Card Number should be 12 digits long</div>
-                    <div *ngIf="g.gasregno.errors.pattern">Aadhar Card Number should contain only numeric digits</div>
+                    <div *ngIf="g.gasregno.errors.required">Gas Agency Registration ID is required</div>
+                    <div *ngIf="g.gasregno.errors.minlength">Gas Agency Registration ID should be 12 digits long</div>
+                    <div *ngIf="g.gasregno.errors.maxlength">Gas Agency Registration ID should be 12 digits long</div>
+                    <div *ngIf="g.gasregno.errors.pattern">Gas Agency Registration ID should contain only numeric digits</div>
                   </div>
             
             <p>
@@ -58,6 +58,8 @@
                       <div *ngIf="g.password.errors.required">Please enter the password</div>
                       <div *ngIf="g.password.errors.pattern">Password must contain minimum 8 characters, an upper case character, lower case character, number and special character</div>
                   </div>
+                  <div *ngIf="wrongPasswordToggle">Incorrect Password Entered</div>
+                  <div *ngIf="wrongGasIdToggle">The Registration ID entered does not exist in our database</div>
                   
             <p>
                 <button mat-raised-button color="accent">Login</button>
@@ -94,6 +96,8 @@
                           <div *ngIf="f.passwordgov.errors.required">Please enter the password</div>
                           <div *ngIf="f.passwordgov.errors.pattern">Password must contain minimum 8 characters,an upper case character, lower case character, number and special character</div>
                       </div>
+                      <div *ngIf="wrongGovPasswordToggle">Incorrect Password Entered</div>
+                      <div *ngIf="wrongGovIdToggle">The Registration ID entered does not exist in our database</div>
                       
                 <p>
                     <button mat-raised-button color="accent">Login</button>
@@ -102,6 +106,7 @@
     </form>
     </mat-card>
     </div>
+
 
  
 

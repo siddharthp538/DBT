@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component'
 import { HttpClientModule } from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
+import { StorageServiceModule } from 'ngx-webstorage-service';
+import {MatListModule} from '@angular/material/list';
 
 import 'hammerjs';
 import { LoginComponent } from './login/login.component';
@@ -47,7 +49,9 @@ import { GasagencyhomeComponent } from './gasagencyhome/gasagencyhome.component'
     MatCardModule,
     MatTableModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    StorageServiceModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

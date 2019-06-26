@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router} from "@angular/router";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DataService } from '../data.service';
 
 
 @Component({
@@ -10,6 +11,23 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+
+  gasAgencyData:any = {
+    gasAgencyRegistrationId:'',
+    gasAgencyPassword:''
+  }
+
+  govtAuthData:any = {
+    govAuthorityId:'',
+    govAuhtorityPassword:''
+  }
+
+  wrongPasswordToggle:boolean = false;
+  wrongGasIdToggle:boolean = false;
+
+  wrongGovPasswordToggle:boolean = false;
+  wrongGovIdToggle:boolean = false;
 
   
   gasRegisterForm: FormGroup;
@@ -20,9 +38,12 @@ export class LoginComponent implements OnInit {
 
   displayToggle = true;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private localStorageService: DataService) { }
+
+  
 
   ngOnInit() {
+
     this.gasRegisterForm = this.formBuilder.group({
       gasregno: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
       Validators.minLength(12), Validators.maxLength(12)]],
@@ -50,9 +71,28 @@ export class LoginComponent implements OnInit {
 
     this.http.get('http://localhost:3000/api/GasAgency/'+this.gasRegisterForm.value.gasregno).subscribe(data => {
       console.log(data);
-    });
+      this.gasAgencyData = data;
 
-    this.router.navigate(['/gasagencyhome']);
+      if(this.gasAgencyData.gasAgencyPassword == this.gasRegisterForm.value.password)
+      {
+      console.log(this.gasRegisterForm.value);
+      this.wrongPasswordToggle = false;
+      this.wrongGasIdToggle = false;
+      this.localStorageService.storeOnLocalStorage(this.gasAgencyData.gasAgencyRegistrationId);
+      this.router.navigate(['/gasagencyhome']);
+      }
+      else
+      {
+      console.log("NO match")
+      this.wrongPasswordToggle = true;
+      }
+      
+    },
+    error => this.wrongGasIdToggle = true
+    
+    );
+
+    
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.gasRegisterForm.value))
     
   }
@@ -65,7 +105,27 @@ export class LoginComponent implements OnInit {
         return;
     }
 
-    this.router.navigate(['/releasefund']);
+    this.http.get('http://localhost:3000/api/GovAuthority/'+this.govRegisterForm.value.username).subscribe(data => {
+      console.log(data);
+      this.govtAuthData = data;
+
+      if(this.govtAuthData.govAuhtorityPassword == this.govRegisterForm.value.passwordgov)
+      {
+      console.log(this.govRegisterForm.value);
+      this.wrongGovPasswordToggle = false;
+      this.wrongGovIdToggle = false;
+      this.router.navigate(['/releasefund']);
+      }
+      else
+      {
+      console.log("NO match")
+      this.wrongGovPasswordToggle = true;
+      }
+      
+    },
+    error => this.wrongGovIdToggle = true
+    
+    );
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.govRegisterForm.value))
     
   }

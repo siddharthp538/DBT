@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-gasagencyhome',
@@ -8,6 +9,27 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./gasagencyhome.component.scss']
 })
 export class GasagencyhomeComponent implements OnInit {
+
+  viewOrderToggle:boolean = false;
+  viewOrderData:any = {
+    aadhaarNo: '',
+    beneficiaryAddress: '',
+    beneficiaryDistrict: '',
+    beneficiaryFirstName: '',
+    beneficiaryLastName: '',
+    beneficiaryLocation: '',
+    beneficiaryOrderHistory: ["Tue Jun 25 2019 12:04:02 GMT+0530 (IST)"],
+    beneficiaryPhoneNumber: '',
+    beneficiaryPincode: '',
+    beneficiaryState: '',
+    lastSubsidyClaim: "2019-06-25T06:30:31.502Z",
+    orderStatus: "ACCEPTED",
+    subsidyEntitlement: 11
+  }
+
+  dashboardData: any = {
+    gasAgencyDistrict: ''
+  }
 
   placeOrderData = {
     
@@ -31,10 +53,26 @@ export class GasagencyhomeComponent implements OnInit {
     OTP:''
   }
 
+  validateOTPData2 = {
+    gasAgencyRegistrationId: '',
+    beneficiaryAadhaarNo:'',
+    govAuthorityId: '123456789112',
+    orderPlaced: ''
+  }
+
+  orderPlacedData: any = {
+    transactionId:''
+  }
+
   requestFundsData = {
     gasAgencyRegistrationId:''
   }
 
+  OtpVerifyData:any = {
+    message:''
+  }
+
+  titleID = '';
   wrongOTP:boolean = false;
   OTPverified:boolean = false;
   orderSuccess:boolean = false;
@@ -61,9 +99,14 @@ export class GasagencyhomeComponent implements OnInit {
     submittedUpdateCustomerInfo = false;
 
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private localStorageService: DataService) { }
 
   ngOnInit() {
+    this.titleID = this.localStorageService.getFromLocalStorage();
+    this.http.get('http://localhost:3000/api/GasAgency/'+this.titleID).subscribe(data => {
+      console.log(data)
+      this.dashboardData = data;
+    });
 
     this.placeOrderForm = this.formBuilder.group({
       customerAadhar: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
@@ -169,12 +212,16 @@ export class GasagencyhomeComponent implements OnInit {
     })
     .subscribe(data => {
     console.log(data);
-    if(data)
-    this.wrongOTP = true;
-    else
+    this.OtpVerifyData = data;
+    if(this.OtpVerifyData.message == "ok")
     {
       this.wrongOTP = false;
       this.OTPverified = true;
+    }
+   
+    else
+    {
+      this.wrongOTP = true;
     }
     
     });
@@ -195,6 +242,7 @@ export class GasagencyhomeComponent implements OnInit {
     .subscribe(data => {
       console.log(data)
       this.orderSuccess = true; 
+      
     },
     error => this.orderFailure = true
     
@@ -205,6 +253,9 @@ export class GasagencyhomeComponent implements OnInit {
   viewOrderDetails(){
     this.http.get('http://localhost:3000/api/Beneficiary/'+this.placeOrderData.beneficiaryAadhaarNo).subscribe(data => {
       console.log(data);
+      this.viewOrderData = data;
+      this.viewOrderToggle = true;
+      console.log(this.viewOrderData);
     });
   }
 
@@ -247,6 +298,10 @@ export class GasagencyhomeComponent implements OnInit {
     this.validateOTPData.OTP = this.verifyOtpForm.value.otp;
     this.validateOTPData.beneficiaryAadhaarNo = this.verifyOtpForm.value.aadharVerifyOtp;
     this.validateOTPData.gasAgencyRegistrationId = this.verifyOtpForm.value.gasAgencyOtp;
+
+    this.validateOTPData2.beneficiaryAadhaarNo = this.verifyOtpForm.value.aadharVerifyOtp;
+    this.validateOTPData2.gasAgencyRegistrationId = this.verifyOtpForm.value.gasAgencyOtp;
+    
     
     alert('SUCCESS1!! :-)\n\n' + JSON.stringify(this.verifyOtpForm.value))
 
@@ -254,13 +309,18 @@ export class GasagencyhomeComponent implements OnInit {
     .set('Authorization', 'my-auth-token')
     .set('Content-Type', 'application/json');
 
-    
+    console.log(this.validateOTPData);
     this.http.post('http://localhost:3000/api/VerifyToken', JSON.stringify(this.validateOTPData), {
     headers: headers
     })
     .subscribe(data => {
     console.log(data);
+    this.orderPlacedData = data;
+    this.validateOTPData2.orderPlaced = this.orderPlacedData.transactionId;
+    console.log(this.validateOTPData2);
     });
+
+    
    
      }
 
