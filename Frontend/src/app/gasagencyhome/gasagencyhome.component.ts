@@ -57,7 +57,8 @@ export class GasagencyhomeComponent implements OnInit {
     gasAgencyRegistrationId: '',
     beneficiaryAadhaarNo:'',
     govAuthorityId: '123456789112',
-    orderPlaced: ''
+    orderPlacedID: '',
+    timeOrderPlaced: ''
   }
 
   orderPlacedData: any = {
@@ -65,7 +66,8 @@ export class GasagencyhomeComponent implements OnInit {
   }
 
   requestFundsData = {
-    gasAgencyRegistrationId:''
+    gasAgencyRegistrationId:'',
+    govAuthorityId:''
   }
 
   OtpVerifyData:any = {
@@ -138,6 +140,8 @@ export class GasagencyhomeComponent implements OnInit {
 
     this.requestFundsForm = this.formBuilder.group({
       gasAgencyRegistrationId: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
+      Validators.minLength(12), Validators.maxLength(12)]],
+      govAuthorityId: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
       Validators.minLength(12), Validators.maxLength(12)]]    
     });
 
@@ -316,7 +320,9 @@ export class GasagencyhomeComponent implements OnInit {
     .subscribe(data => {
     console.log(data);
     this.orderPlacedData = data;
-    this.validateOTPData2.orderPlaced = this.orderPlacedData.transactionId;
+    this.validateOTPData2.orderPlacedID = this.orderPlacedData.transactionId;
+    const time = new Date();
+    this.validateOTPData2.timeOrderPlaced = time.toString();
     console.log(this.validateOTPData2);
 
     this.http.post('http://localhost:3000/api/NotifyGovAuthority', JSON.stringify(this.validateOTPData2), {

@@ -117,7 +117,7 @@ export class LoginComponent implements OnInit {
       this.wrongGovPasswordToggle = false;
       this.wrongGovIdToggle = false;
       this.localGovStorageService.storeOnLocalStorageGov(this.govtAuthData.govAuthorityId);
-      this.router.navigate(['/releasefund']);
+      this.router.navigate(['/govtauthhome']);
       }
       else
       {

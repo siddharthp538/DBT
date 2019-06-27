@@ -1,18 +1,40 @@
-<mat-card>Gas Agency ID: {{titleID}}</mat-card>
+<mat-card>Government Authority ID: {{titleID}}</mat-card>
   <mat-tab-group>
       <mat-tab label="Home">
           <mat-card style="margin-top: 15px"> 
             <mat-list>
-                <mat-list-item> District: {{dashboardData.gasAgencyDistrict}} </mat-list-item>
-                <mat-list-item> Inventory: {{dashboardData.gasAgencyInventory}}  </mat-list-item>
-                <mat-list-item> Last Paid: {{dashboardData.gasAgencyLastPaid}}  </mat-list-item>
-                <mat-list-item> Location: {{dashboardData.gasAgencyLocation}}  </mat-list-item>
-                <mat-list-item> Orders Placed: {{dashboardData.gasAgencyOrdersPlaced}}  </mat-list-item>
-                <mat-list-item> Orders Served: {{dashboardData.gasAgencyOrdersServed}}  </mat-list-item>
-                <mat-list-item> Owner: {{dashboardData.gasAgencyOwner}}  </mat-list-item>
-                <mat-list-item> Phone No: {{dashboardData.gasAgencyPhoneNumber}}  </mat-list-item>
-                <mat-list-item> Pin Code: {{dashboardData.gasAgencyPincode}}  </mat-list-item>
-                <mat-list-item> State: {{dashboardData.gasAgencyState}}  </mat-list-item>
+                <mat-list-item> <h2>{{dashboardData.govAuthorityTitle}} </h2> </mat-list-item>
+                <mat-list-item> Domain: {{dashboardData.govAuhtorityDomain[0]}} </mat-list-item>
+                <mat-list-item> Jurisdiction: {{dashboardData.govAuthorityJurisdicition}}  </mat-list-item>
+                <mat-list-item> Orders Placed: {{dashboardData.govAuthorityOrdersPlaced}}  </mat-list-item>
             </mat-list>
           </mat-card>
       </mat-tab>
+
+   <mat-tab label="Release Funds">
+       <mat-card style="margin-top: 15px">
+        <mat-list *ngFor="let c of releaseFundsData">
+          <mat-list-item >
+            <p><b>Gas Agency Registration ID: </b>{{c.gasAgencyRegistrationId}}</p>
+          </mat-list-item>
+            
+          <mat-list-item>
+            <p><b>Deficit: </b>Rs. {{c.gasAgencyDeficitIncurred}}</p>
+          </mat-list-item>
+
+          <mat-list-item>
+            <p><b>Location: </b>{{c.gasAgencyLocation}}</p>
+          </mat-list-item>
+
+          <mat-list-item>
+            <p><button mat-raised-button color="accent" (click)="releaseFunds(c.gasAgencyRegistrationId)">Release Funds</button></p>
+          </mat-list-item>
+
+          <div *ngIf="releaseFundsSuccessToggle">
+            <p>Funds released successfully !</p>   
+          </div>
+          
+      </mat-list>
+        </mat-card>
+    </mat-tab>
+  </mat-tab-group>

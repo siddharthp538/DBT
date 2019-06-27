@@ -192,7 +192,20 @@
                             <div *ngIf="e.gasAgencyRegistrationId.errors.minlength">Gas Registration ID should be 10 digits long</div>
                             <div *ngIf="e.gasAgencyRegistrationId.errors.maxlength">Gas Registration ID should be 10 digits long</div>
                             <div *ngIf="e.gasAgencyRegistrationId.errors.pattern">Gas Registration ID contain only numeric digits</div>
-                          </div>                        
+                          </div> 
+                          
+                          <p>  
+                              <mat-form-field>
+                                <label>Government Authority ID</label>
+                                  <input matInput type="text" formControlName="govAuthorityId" class="form-control" [ngClass]="{ 'is-invalid': submittedAgencyRegistrationId && e.govAuthorityId.errors }" />
+                              </mat-form-field>
+                          </p>
+                                <div *ngIf="submittedAgencyRegistrationId && e.govAuthorityId.errors" class="invalid-feedback">
+                                  <div *ngIf="e.govAuthorityId.errors.required">Government Authority ID is required</div>
+                                  <div *ngIf="e.govAuthorityId.errors.minlength">Government Authority ID should be 10 digits long</div>
+                                  <div *ngIf="e.govAuthorityId.errors.maxlength">Government Authority ID should be 10 digits long</div>
+                                  <div *ngIf="e.govAuthorityId.errors.pattern">Government Authority ID contain only numeric digits</div>
+                                </div>   
                     <p>
                         <button mat-raised-button class="dark">Request Funds</button>
                     </p>

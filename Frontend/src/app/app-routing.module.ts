@@ -6,6 +6,7 @@ import { OtpComponent } from './otp/otp.component';
 import { ReleasefundComponent } from './releasefund/releasefund.component';
 import { PlaceorderComponent } from './placeorder/placeorder.component';
 import { GasagencyhomeComponent } from './gasagencyhome/gasagencyhome.component';
+import { GovtauthhomeComponent } from './govtauthhome/govtauthhome.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'otp', component: OtpComponent},
   { path: 'releasefund', component:ReleasefundComponent},
   { path: 'placeorder', component:PlaceorderComponent},
-  { path: 'gasagencyhome', component:GasagencyhomeComponent}
+  { path: 'gasagencyhome', component:GasagencyhomeComponent},
+  { path: 'govtauthhome', component: GovtauthhomeComponent }
 ];
 
 @NgModule({
