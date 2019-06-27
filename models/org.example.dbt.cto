@@ -25,6 +25,7 @@ participant GovAuthority identified by govAuthorityId {
   o String govAuthorityJurisdicition
   o String[] govAuhtorityDomain
   o String[] govAuthorityOrdersPlaced
+  o String[] fundsRequested 
 }
 
 participant GasAgency identified by gasAgencyRegistrationId{
@@ -95,7 +96,8 @@ transaction NotifyGovAuthority{
   o String gasAgencyRegistrationId
   o String beneficiaryAadhaarNo
   o String govAuthorityId
-  o String orderPlaced 
+  o String orderPlacedID 
+  o String timeOrderPlaced
   
 }
 
@@ -119,9 +121,11 @@ transaction VerifyToken {
 transaction RelaseFunds  {
   o String gasAgencyRegistrationId
   o String govAuthorityTitle
+  o String govAuthorityId
 }
 transaction RequestFunds {
   o String gasAgencyRegistrationId
+  o String govAuthorityId
 }
 
 transaction StoreOTP  {

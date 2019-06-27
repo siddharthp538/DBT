@@ -1,10 +1,5 @@
-const obj = {
-    name : 'sid',
-    lname : 'pandey'
-}
-
-let str = JSON.stringify(obj);
-console.log(str);
-
-let ans = JSON.parse(str);
-console.log(ans);
+const a = [
+    "{\"id\":\"123456789112\",\"amount\":0}"
+  ]
+  const x = JSON.parse(a[0]);
+console.log(x['id']); 
