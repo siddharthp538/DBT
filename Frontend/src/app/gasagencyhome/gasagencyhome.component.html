@@ -209,6 +209,15 @@
                     <p>
                         <button mat-raised-button class="dark">Request Funds</button>
                     </p>
+                      <div *ngIf="requestFundsErrorToggle">
+                        <p>Error Requesting Funds. No deficit found.</p>
+                      </div>
+
+                      <div *ngIf="requestFundsSuccessToggle">
+                          <p>Request for funds made successfully</p>
+                        </div>
+
+                      
                </mat-dialog-content>
             </form>
         </mat-card>
@@ -216,7 +225,7 @@
   </mat-tab>
 
   <mat-tab label="Update Customer Information">
-    <mat-card style="margin-top: 15px">           
+    <mat-card style="margin-top: 15px" *ngIf="!updateCustomerToggle">           
         <form [formGroup]="updateCustomerInfoForm" (ngSubmit)="onSubmitCustomerInfo()">
           <h3>Update Customer Information</h3>
             <mat-dialog-content>
@@ -238,6 +247,95 @@
              </mat-dialog-content>
           </form>
       </mat-card>
+
+    <mat-card *ngIf="updateCustomerToggle">
+      <mat-list>
+            <mat-list-item>
+                <p><b>Aadhar No: </b>{{UpdateCustomerInfoData.aadhaarNo}}</p>
+              </mat-list-item>
+                
+              <mat-list-item>
+                <p><b>First Name: </b>{{UpdateCustomerInfoData.beneficiaryFirstName}}</p>
+              </mat-list-item>
+    
+              <mat-list-item>
+                <p><b>Last Name: </b>{{UpdateCustomerInfoData.beneficiaryLastName}}</p>
+              </mat-list-item>           
+     </mat-list>
+     <form [formGroup]="updateCustomerInfoForm2" (ngSubmit)="onSubmitCustomerInfo2()">
+        <p>  
+            <mat-form-field>
+              <label>Phone Number</label>
+                <input matInput type="text" formControlName="updatedPhoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submittedUpdateCustomerInfo2 && i.updatedPhoneNumber.errors }" />
+            </mat-form-field>
+        </p>
+              <div *ngIf="submittedUpdateCustomerInfo2 && i.updatedPhoneNumber.errors" class="invalid-feedback">
+                <div *ngIf="e.govAuthorityId.errors.required">Phone No is required</div>
+                <div *ngIf="e.govAuthorityId.errors.minlength">Phone No should be 10 digits long</div>
+                <div *ngIf="e.govAuthorityId.errors.maxlength">Phone No should be 10 digits long</div>
+                <div *ngIf="e.govAuthorityId.errors.pattern">Phone No contain only numeric digits</div>
+              </div> 
+
+              <p>  
+                  <mat-form-field>
+                    <label>State</label>
+                      <input matInput type="text" formControlName="updatedState" class="form-control" [ngClass]="{ 'is-invalid': submittedAgencyRegistrationId && i.govAuthorityId.errors }" />
+                  </mat-form-field>
+              </p>
+                    <div *ngIf="submittedAgencyRegistrationId && e.govAuthorityId.errors" class="invalid-feedback">
+                      <div *ngIf="i.govAuthorityId.errors.required">Government Authority ID is required</div>
+                      <div *ngIf="i.govAuthorityId.errors.minlength">Government Authority ID should be 10 digits long</div>
+                      <div *ngIf="i.govAuthorityId.errors.maxlength">Government Authority ID should be 10 digits long</div>
+                      <div *ngIf="i.govAuthorityId.errors.pattern">Government Authority ID contain only numeric digits</div>
+                    </div> 
+
+
+                    <p>  
+                        <mat-form-field>
+                          <label>District</label>
+                            <input matInput type="text" formControlName="updatedDistrict" class="form-control" [ngClass]="{ 'is-invalid': submittedUpdateCustomerInfo2 && i.updatedDistrict.errors }" />
+                        </mat-form-field>
+                    </p>
+                          <div *ngIf="submittedUpdateCustomerInfo2 && i.updatedDistrict.errors" class="invalid-feedback">
+                            <div *ngIf="i.updatedDistrict.errors.required">District is required</div>
+                          </div> 
+
+                          <p>  
+                              <mat-form-field>
+                                <label>Location</label>
+                                  <input matInput type="text" formControlName="updatedLocation" class="form-control" [ngClass]="{ 'is-invalid': submittedUpdateCustomerInfo2 && i.updatedLocation.errors }" />
+                              </mat-form-field>
+                          </p>
+                                <div *ngIf="submittedUpdateCustomerInfo2 && i.updatedLocation.errors" class="invalid-feedback">
+                                  <div *ngIf="i.govAuthorityId.errors.required">Location is required</div>
+                                </div> 
+
+                                <p>  
+                                    <mat-form-field>
+                                      <label>Pin Code</label>
+                                        <input matInput type="text" formControlName="updatedPincode" class="form-control" [ngClass]="{ 'is-invalid': submittedUpdateCustomerInfo2 && i.updatedPincode.errors }" />
+                                    </mat-form-field>
+                                </p>
+                                      <div *ngIf="submittedUpdateCustomerInfo2 && i.updatedPincode.errors" class="invalid-feedback">
+                                        <div *ngIf="i.updatedPincode.errors.required">Pin Code is required</div>
+                                      </div>
+                                
+                                      <p>  
+                                          <mat-form-field>
+                                            <label>Address</label>
+                                              <input matInput type="text" formControlName="updatedAddress" class="form-control" [ngClass]="{ 'is-invalid': submittedUpdateCustomerInfo2 && i.updatedAddress.errors }" />
+                                          </mat-form-field>
+                                      </p>
+                                            <div *ngIf="submittedUpdateCustomerInfo2 && e.updatedAddress.errors" class="invalid-feedback">
+                                              <div *ngIf="i.updatedAddress.errors.required">Government Authority ID is required</div>
+                                            </div> 
+
+                                            <button mat-raised-button class="dark">Update Customer Information</button>
+                                    
+                                  
+    </form>
+
+    </mat-card>
   
   </mat-tab>
 </mat-tab-group>

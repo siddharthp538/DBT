@@ -74,6 +74,8 @@ export class GasagencyhomeComponent implements OnInit {
     message:''
   }
 
+  UpdateCustomerInfoData:any ;
+
   titleID = '';
   wrongOTP:boolean = false;
   OTPverified:boolean = false;
@@ -81,6 +83,9 @@ export class GasagencyhomeComponent implements OnInit {
   orderFailure:boolean = false; 
   displayToggle: boolean = false;
   displayPlaceOrderOTP: boolean = false;
+  requestFundsErrorToggle: boolean = false;
+  requestFundsSuccessToggle: boolean = false;
+  updateCustomerToggle: boolean = false;
 
   placeOrderForm: FormGroup;
     submitted = false;
@@ -99,6 +104,9 @@ export class GasagencyhomeComponent implements OnInit {
 
     updateCustomerInfoForm: FormGroup;
     submittedUpdateCustomerInfo = false;
+
+    updateCustomerInfoForm2: FormGroup;
+    submittedUpdateCustomerInfo2 = false;
 
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private localStorageService: DataService) { }
@@ -149,6 +157,18 @@ export class GasagencyhomeComponent implements OnInit {
       updateAadhar: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
       Validators.minLength(12), Validators.maxLength(12)]]    
     });
+
+    this.updateCustomerInfoForm2 = this.formBuilder.group({
+      updatedPhoneNumber: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
+      Validators.minLength(10), Validators.maxLength(10)]] ,
+      updatedPincode: ['', [Validators.required, Validators.pattern("^[0-9]*$"),
+      Validators.minLength(6), Validators.maxLength(6)]] ,
+      updatedAddress: ['', [Validators.required]] ,
+      updatedLocation: ['', [Validators.required]] ,
+      updatedDistrict: ['', [Validators.required]] ,
+      updatedState: ['', [Validators.required]] 
+
+    });
   }
 
   get h() { return this.placeOrderForm.controls; }
@@ -157,6 +177,7 @@ export class GasagencyhomeComponent implements OnInit {
   get f() { return this.verifyOtpForm.controls; }
   get e() { return this.requestFundsForm.controls; }
   get d() { return this.updateCustomerInfoForm.controls; }
+  get i() { return this.updateCustomerInfoForm2.controls; }
 
   onSubmitOrder(){
     this.submitted = true;
@@ -352,13 +373,19 @@ export class GasagencyhomeComponent implements OnInit {
       .set('Content-Type', 'application/json');
   
       this.requestFundsData.gasAgencyRegistrationId = this.requestFundsForm.value.gasAgencyRegistrationId;
+      this.requestFundsData.govAuthorityId = this.requestFundsForm.value.govAuthorityId;
 
       this.http.post('http://localhost:3000/api/RequestFunds', JSON.stringify(this.requestFundsData), {
       headers: headers
       })
       .subscribe(data => {
       console.log(data);
-      });
+      this.requestFundsSuccessToggle = true;
+      this.requestFundsErrorToggle = false;
+      },
+      error => this.requestFundsErrorToggle = true
+               
+      );
       
       alert('SUCCESS1!! :-)\n\n' + JSON.stringify(this.requestFundsForm.value))
      
@@ -371,6 +398,35 @@ export class GasagencyhomeComponent implements OnInit {
       if (this.updateCustomerInfoForm.invalid) {
           return;
       } 
+
+      this.http.get('http://localhost:3000/api/Beneficiary/'+this.updateCustomerInfoForm.value.updateAadhar).subscribe(data => {
+      console.log(data)
+      this.UpdateCustomerInfoData = data;
+      this.updateCustomerToggle = true;
+    });
+      
+
+      alert('SUCCESS1!! :-)\n\n' + JSON.stringify(this.updateCustomerInfoForm.value))
+     
+    }
+
+    onSubmitCustomerInfo2(){
+      this.submittedUpdateCustomerInfo2 = true;
+  
+      // stop here if form is invalid
+      if (this.updateCustomerInfoForm2.invalid) {
+          return;
+      } 
+
+     this.UpdateCustomerInfoData.beneficiaryPhoneNumber = this.updateCustomerInfoForm2.value.updatedPhoneNumber;
+     this.UpdateCustomerInfoData.beneficiaryAddress = this.updateCustomerInfoForm2.value.updatedAddress;
+     this.UpdateCustomerInfoData.beneficiaryDistrict = this.updateCustomerInfoForm2.value.updatedDistrict;
+     this.UpdateCustomerInfoData.beneficiaryLocation = this.updateCustomerInfoForm2.value.updatedLocation;
+     this.UpdateCustomerInfoData.beneficiaryPincode = this.updateCustomerInfoForm2.value.updatedPincode;
+     this.UpdateCustomerInfoData.beneficiaryState = this.updateCustomerInfoForm2.value.updatedState;
+
+
+      console.log(this.UpdateCustomerInfoData);
       
 
       alert('SUCCESS1!! :-)\n\n' + JSON.stringify(this.updateCustomerInfoForm.value))

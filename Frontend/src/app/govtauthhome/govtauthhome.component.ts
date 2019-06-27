@@ -15,6 +15,8 @@ export class GovtauthhomeComponent implements OnInit {
 
   releaseFundsData:any;
 
+  subsidyData:any;
+
   releaseFundsPostData:any = {
     gasAgencyRegistrationId: '',
     govAuthorityId: ''
@@ -38,6 +40,11 @@ export class GovtauthhomeComponent implements OnInit {
     this.http.get('http://localhost:3000/api/GasAgency/').subscribe(data => {
       console.log(data)
       this.releaseFundsData = data;
+    });
+
+    this.http.get('http://localhost:3000/api/SubsidyAmount/').subscribe(data => {
+      console.log(data)
+      this.subsidyData = data;
     });
   }
 

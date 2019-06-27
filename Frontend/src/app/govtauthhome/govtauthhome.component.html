@@ -13,28 +13,65 @@
 
    <mat-tab label="Release Funds">
        <mat-card style="margin-top: 15px">
+        <mat-card-title>Fund Requests</mat-card-title>
         <mat-list *ngFor="let c of releaseFundsData">
-          <mat-list-item >
+            <mat-card>
+          <mat-list-item *ngIf="c.gasAgencyDeficitIncurred!=0">
             <p><b>Gas Agency Registration ID: </b>{{c.gasAgencyRegistrationId}}</p>
           </mat-list-item>
             
-          <mat-list-item>
+          <mat-list-item *ngIf="c.gasAgencyDeficitIncurred!=0">
             <p><b>Deficit: </b>Rs. {{c.gasAgencyDeficitIncurred}}</p>
           </mat-list-item>
 
-          <mat-list-item>
+          <mat-list-item *ngIf="c.gasAgencyDeficitIncurred!=0">
             <p><b>Location: </b>{{c.gasAgencyLocation}}</p>
           </mat-list-item>
 
-          <mat-list-item>
+          <mat-list-item *ngIf="c.gasAgencyDeficitIncurred!=0">
             <p><button mat-raised-button color="accent" (click)="releaseFunds(c.gasAgencyRegistrationId)">Release Funds</button></p>
           </mat-list-item>
 
           <div *ngIf="releaseFundsSuccessToggle">
             <p>Funds released successfully !</p>   
           </div>
+        </mat-card>
           
       </mat-list>
+        </mat-card>
+    </mat-tab>
+
+    <mat-tab label="Subsidy Log">
+        <mat-card style="margin-top: 15px"> 
+          <mat-card-title>Subsidy History</mat-card-title>
+            <mat-list *ngFor="let e of subsidyData">
+              <mat-card>
+                <mat-list-item>
+                    <p><b>Gas Agency Registration ID: </b>{{e.gasAgencyRegistrationId}}</p>
+                  </mat-list-item>
+                    
+                  <mat-list-item>
+                    <p><b>Subsidy Amount: </b>Rs. {{e.subsidyAmount}}</p>
+                  </mat-list-item>
+        
+                  <mat-list-item>
+                    <p><b>Payed by: </b>{{e.payedBy}}</p>
+                  </mat-list-item>
+
+                  <mat-list-item>
+                      <p><b>Payed To: </b>{{e.payedTo}}</p>
+                    </mat-list-item>
+
+                    <mat-list-item>
+                        <p><b>Subsidy ID: </b>{{e.subsidyId}}</p>
+                      </mat-list-item>
+                    
+                      <mat-list-item>
+                          <p><b>Issued At: </b>{{e.issuedAt}}</p>
+                        </mat-list-item>
+                      </mat-card>
+        
+          </mat-list>
         </mat-card>
     </mat-tab>
   </mat-tab-group>
