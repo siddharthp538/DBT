@@ -86,6 +86,9 @@ export class GasagencyhomeComponent implements OnInit {
   requestFundsErrorToggle: boolean = false;
   requestFundsSuccessToggle: boolean = false;
   updateCustomerToggle: boolean = false;
+  notifyGovToggle:boolean = false;
+  updateCustomerSuccessToggle: boolean = false;
+  tempAadharNo = '';
 
   placeOrderForm: FormGroup;
     submitted = false;
@@ -351,6 +354,7 @@ export class GasagencyhomeComponent implements OnInit {
       })
       .subscribe(data => {
       console.log(data);
+      this.notifyGovToggle = true;
      });
 
     });
@@ -424,9 +428,29 @@ export class GasagencyhomeComponent implements OnInit {
      this.UpdateCustomerInfoData.beneficiaryLocation = this.updateCustomerInfoForm2.value.updatedLocation;
      this.UpdateCustomerInfoData.beneficiaryPincode = this.updateCustomerInfoForm2.value.updatedPincode;
      this.UpdateCustomerInfoData.beneficiaryState = this.updateCustomerInfoForm2.value.updatedState;
+     this.tempAadharNo = this.UpdateCustomerInfoData.aadhaarNo;
+
+     delete this.UpdateCustomerInfoData.aadhaarNo;
 
 
       console.log(this.UpdateCustomerInfoData);
+
+      const headers = new HttpHeaders()
+      .set('Authorization', 'my-auth-token')
+      .set('Content-Type', 'application/json');
+
+      this.http.put('http://localhost:3000/api/Beneficiary/'+this.tempAadharNo, JSON.stringify(this.UpdateCustomerInfoData), {
+        headers: headers
+        })
+        .subscribe(data => {
+        console.log(data);
+          this.updateCustomerSuccessToggle = true;
+        
+        }
+                 
+        );
+
+
       
 
       alert('SUCCESS1!! :-)\n\n' + JSON.stringify(this.updateCustomerInfoForm.value))

@@ -85,13 +85,16 @@
               <button mat-button (click)="viewOrderDetails()">View Order History</button>
           </div>
 
-          <div *ngIf="viewOrderToggle">
-            <table>
-              <tr>
-                <th>Aadhar No</th>
-                <th>{{viewOrderData.aadhaarNo}}</th>
-              </tr>
-            </table>
+          <div *ngIf="viewOrderToggle" class="right">
+            <mat-card>
+            <mat-list>
+                <mat-list-item> <b>Aadhar No: </b>{{viewOrderData.aadhaarNo}} </mat-list-item>
+                <mat-list-item> <b>Name: </b>{{viewOrderData.beneficiaryFirstName }} {{viewOrderData.beneficiaryLastName}}</mat-list-item>
+                <mat-list-item> <b>Address: </b>{{viewOrderData.beneficiaryAddress}} </mat-list-item>
+                <mat-list-item> <b>Order History: </b>{{viewOrderData.beneficiaryOrderHistory}} </mat-list-item>
+                <mat-list-item> <b>Phone Number: </b>{{viewOrderData.beneficiaryPhoneNumber}} </mat-list-item>
+              </mat-list>
+            </mat-card>
         </div>
         
       </mat-card>
@@ -167,8 +170,13 @@
                     </div>
                     
               <p>
-                  <button mat-raised-button class="dark">Register</button>
+                  <button mat-raised-button class="dark">Verify OTP</button>
               </p>
+              <div *ngIf="notifyGovToggle">
+                <p>
+                    Order delivery complete. Government Authority notified.
+                </p>
+              </div>
          </mat-dialog-content>
       </form>
     </mat-card>
@@ -326,11 +334,16 @@
                                               <input matInput type="text" formControlName="updatedAddress" class="form-control" [ngClass]="{ 'is-invalid': submittedUpdateCustomerInfo2 && i.updatedAddress.errors }" />
                                           </mat-form-field>
                                       </p>
-                                            <div *ngIf="submittedUpdateCustomerInfo2 && e.updatedAddress.errors" class="invalid-feedback">
+                                            <div *ngIf="submittedUpdateCustomerInfo2 && i.updatedAddress.errors" class="invalid-feedback">
                                               <div *ngIf="i.updatedAddress.errors.required">Government Authority ID is required</div>
                                             </div> 
 
                                             <button mat-raised-button class="dark">Update Customer Information</button>
+                                        <div *ngIf= "updateCustomerSuccessToggle">
+                                          <p>
+                                            Customer Information Updated
+                                          </p>
+                                        </div>
                                     
                                   
     </form>
