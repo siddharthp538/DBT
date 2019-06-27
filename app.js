@@ -125,12 +125,13 @@ app.post('/VerifyOTP', (req,res)=>{
      
 });
 
-app.post('/otp', (req,res)=>{
+app.post('/orderPlaced', (req,res)=>{
+  console.log('order is placed');
   let otp = Math.floor(Math.random()*100000);
   const from =  'Ministry of Oil & Natural Gas';
   console.log(from);
   const to = '91'+req.body.phone;
-  const text = otp;
+  const text = 'Your order has been successfully placed.';
   console.log(to);
   console.log(text);
   nexmo.message.sendSms('Bhaiya Blockchains', to, text, (err, responseData) => {
@@ -151,6 +152,35 @@ app.post('/otp', (req,res)=>{
 
 
 });
+
+
+app.post('/orderServed', (req,res)=>{
+  let otp = Math.floor(Math.random()*100000);
+  const from =  'Ministry of Oil & Natural Gas';
+  console.log(from);
+  const to = '91'+req.body.phone;
+  const text = 'Your order has been successfully delivered. Thank you for trusting bhaiya blockchains :)';
+  console.log(to);
+  console.log(text);
+  nexmo.message.sendSms('Bhaiya Blockchains', to, text, (err, responseData) => {
+    console.log("error is : " + err);
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(responseData);
+        if(responseData.messages[0]['status'] === "0") {
+            console.log("Message sent successfully.");
+            res.send("otp sent!");
+        } else {
+            console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+            res.send("error occured");
+        }
+    }
+  });
+
+
+});
+
 
 app.listen(5000, () => {
     console.log('Node server running on port 5000....');
