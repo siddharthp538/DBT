@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  imageUrlArray = ["assets/farmer.jpg",
-                   "assets/modi.jpg",
-                   "assets/lpg.jpg",
+  imageUrlArray = [ "assets/modi.jpg",
+                  "assets/farmer.jpg",
+                  "assets/blockchain.jpg",
                    "assets/ration.jpeg"]
 
   constructor() { }
