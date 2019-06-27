@@ -23,6 +23,7 @@ import { OtpComponent } from './otp/otp.component';
 import { ReleasefundComponent } from './releasefund/releasefund.component';
 import { PlaceorderComponent } from './placeorder/placeorder.component';
 import { GasagencyhomeComponent } from './gasagencyhome/gasagencyhome.component';
+import { GovtauthhomeComponent } from './govtauthhome/govtauthhome.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { GasagencyhomeComponent } from './gasagencyhome/gasagencyhome.component'
     OtpComponent,
     ReleasefundComponent,
     PlaceorderComponent,
-    GasagencyhomeComponent
+    GasagencyhomeComponent,
+    GovtauthhomeComponent
   ],
   imports: [
     BrowserModule,

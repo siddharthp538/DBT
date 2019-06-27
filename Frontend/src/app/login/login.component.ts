@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router} from "@angular/router";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from '../data.service';
+import { GovtdataService } from '../govtdata.service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class LoginComponent implements OnInit {
 
   displayToggle = true;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private localStorageService: DataService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, private localStorageService: DataService,
+    private localGovStorageService: GovtdataService) { }
 
   
 
@@ -114,6 +116,7 @@ export class LoginComponent implements OnInit {
       console.log(this.govRegisterForm.value);
       this.wrongGovPasswordToggle = false;
       this.wrongGovIdToggle = false;
+      this.localGovStorageService.storeOnLocalStorageGov(this.govtAuthData.govAuthorityId);
       this.router.navigate(['/releasefund']);
       }
       else
